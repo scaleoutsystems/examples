@@ -25,6 +25,12 @@ $ pip install fedn
 $ cd "mnist-keras"  #for example!
 ```
 
+4. Setup dependencies for the specific example
+FEDn is framework agnostic but the examples each require whatever framework you see fit to use! And hence some dependencies are required. Install them by the following command:
+```bash
+$ pip install -r requirements.txt
+``` 
+
 4. Get the client config for your federation!
 a) Start a reducer and combiner and base services by reading instructions in `https://github.com/scaleoutsystems/fedn.git/ or navigate to your pre-setup federation page (for example Scaleout Studio!)
 
