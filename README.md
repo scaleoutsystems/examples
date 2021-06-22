@@ -8,10 +8,12 @@ Please read the README in each respective example for more information!
 ## Starting a native client
 If you want to start a native client there is a very quick way to get started!
 
-1. Create a virtual environment
+1. Create a virtual environment and activate it
 ```bash
 $ python3 -m venv env
+$ source env/bin/activate
 ```
+
 
 2. Install the fedn client
 ```bash
