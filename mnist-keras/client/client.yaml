@@ -1,0 +1,5 @@
+network_id: r5cd1dd3a.studio.scaleoutsystems.com-network
+controller:
+    discover_host: r5cd1dd3a.studio.scaleoutsystems.com
+    discover_port: 443
+    token: reducer_token
