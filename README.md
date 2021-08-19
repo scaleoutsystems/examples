@@ -1,19 +1,17 @@
 # Examples
 
-This repository is (new) and will be hosting all the great examples that Scaleout provides its users for FEDn and STACKn.
+This repository hosts examples that Scaleout provides its users for FEDn and STACKn.
 
 Please read the README in each respective example for more information!
 
-
-## Starting a native client
-If you want to start a native client there is a very quick way to get started!
+## Starting a native client (FEDn)
+If you want to start a native client there is a quick way to get started!
 
 1. Create a virtual environment and activate it
 ```bash
 $ python3 -m venv env
 $ source env/bin/activate
 ```
-
 
 2. Install the fedn client
 ```bash
@@ -32,17 +30,15 @@ $ pip install -r requirements.txt
 ``` 
 
 5. Get the client config for your federation!
-a) Start a reducer and combiner and base services by reading instructions in `https://github.com/scaleoutsystems/fedn.git/ or navigate to your pre-setup federation page (for example Scaleout Studio!)
+The config file client.yaml is obtained by downloading it from the _Network_  page of the Reducer. Download the file and place it in the example folder of choice (replacing the existing client.yaml)
 
-6. Download the file and place it in the example folder of choice (replacing the existing client.yaml)
-
-7. Start the client!
+6. Start the client!
 ```bash
 $ fedn run client -in client.yaml
 ```
-8. Observe the federation structure have a new client associated using the _Network_ Monitor page in FEDn.
+7. Observe that the federation  have a new client associated using the _Network_  page in FEDn.
 
-9. From here you can monitor, instruct and direct your federation.
+8. You are now ready to start training for the federation (_Control_  page of the Reducer.)
 (minimum requirement 1 client for examples).
 
 
