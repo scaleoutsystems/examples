@@ -23,6 +23,7 @@ $ cd "mnist-keras"  #for example!
 ```
 
 4. Setup dependencies for the specific example
+
 Each client/example require an execution context, and thus dependencies are required. Install them by the following command:
 ```bash
 $ pip install -r requirements.txt
