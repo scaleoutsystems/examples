@@ -1,27 +1,24 @@
 # MNIST test project
 This classic example of hand-written text recognition is well suited both as a lightweight test when learning FEDn and developing on FEDn in psedo-distributed mode. A normal high-end laptop or a workstation should be able to sustain at least 5 clients. The example is also useful for general scalability tests in fully distributed mode. 
 
-> Note that this file descibes how to configure an alliance for a particular FedML-model and how to attach clients. We here assume that a FEDn network is aleady up and running. If this is not the case, start here: https://github.com/scaleoutsystems/fedn/blob/master/README.md
+> Note that this example shows how to configure FEDn for training, and how to configure and start clients. We assume that a FEDn network is aleady up and running with a blank, unconfigured Reducer. If this is not the case, start here: https://github.com/scaleoutsystems/fedn/blob/master/README.md
 
 ## Configuring the Reducer  
-Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/mnist.tar.gz' and the initial model in 'initial_model/initial_model.npz'. 
+Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/package.tar.gz' and the initial model in 'initial_model/initial_model.npz'. 
 
-## Starting a client
+## Attaching a client to the federation
 
-### Download client.yaml
-Download client.yaml from the Reducer 'Network' page,  and replace the content in your local 'client.yaml'.
-
-The client.yaml file  contains all the required information for a client to connect to a federation.
+### Download client.yaml from the Reducer
+Download client.yaml from the Reducer 'Network' page, and replace the content in your local 'client.yaml'.
 
 ### Local training and test data
-This example is provided with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'.
-To make testing flexible, each client subsamples from this dataset upon first invokation of a training request, then cache this subsampled data for use for the remaining lifetime of the client. It is thus normal that the first training round takes a bit longer than subssequent ones.  
+This example ships with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'. 
 
 ### Start the client
 The easiest way to start clients for quick testing is by using Docker. We provide a docker-compose template for convenience:
 
 ```bash
-docker-compose up -f ../config/private-network.yaml --scale client=2 
+docker-compose up -f private-network.yaml --scale client=2 
 ```
 to start a client and attach it to the local private-network where you run reducer and combiner.
 
