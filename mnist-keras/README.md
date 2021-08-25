@@ -8,16 +8,16 @@ Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow ins
 
 ## Starting a client
 
-### Local training and test data
-This example is provided with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'.
-To make testing flexible, each client subsamples from this dataset upon first invokation of a training request, then cache this subsampled data for use for the remaining lifetime of the client. It is thus normal that the first training round takes a bit longer than subssequent ones.  
-
-## Download client.yaml
+### Download client.yaml
 Download client.yaml from the Reducer 'Network' page,  and replace the content in your local 'client.yaml'.
 
 The client.yaml file  contains all the required information for a client to connect to a federation.
 
-## Start the client
+### Local training and test data
+This example is provided with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'.
+To make testing flexible, each client subsamples from this dataset upon first invokation of a training request, then cache this subsampled data for use for the remaining lifetime of the client. It is thus normal that the first training round takes a bit longer than subssequent ones.  
+
+### Start the client
 The easiest way to start clients for quick testing is by using Docker. We provide a docker-compose template for convenience:
 
 ```bash
