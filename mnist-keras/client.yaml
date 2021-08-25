@@ -1,5 +1,5 @@
-network_id: r824d5b81.studio.scaleoutsystems.com-network
+network_id: reducer-network
 controller:
-    discover_host: r824d5b81.studio.scaleoutsystems.com
-    discover_port: 443
+    discover_host: reducer
+    discover_port: 8090
     token: reducer_token
