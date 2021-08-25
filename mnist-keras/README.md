@@ -18,7 +18,7 @@ This example ships with the mnist dataset from https://s3.amazonaws.com/img-data
 The easiest way to start clients for quick testing is by using Docker. We provide a docker-compose template for convenience:
 
 ```bash
-docker-compose up -f private-network.yaml --scale client=2 
+docker-compose -f private-network.yaml up --scale client=2 
 ```
 to start a client and attach it to the local private-network where you run reducer and combiner.
 
