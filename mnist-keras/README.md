@@ -15,16 +15,15 @@ Download client.yaml from the Reducer 'Network' page, and replace the content in
 This example ships with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'. 
 
 ### Start the client
-The easiest way to start clients for quick testing is by using Docker. We provide a docker-compose template for convenience:
+The easiest way to start clients for quick testing is by using Docker. We provide a docker-compose template for convenience. To start 2 clients, assuming you are usign a pseudo-distributed FEDn network from the getting started guide in the main fedn repository: 
 
 ```bash
-docker-compose -f private-network.yaml up --scale client=2 
+docker-compose -f docker-compose.yaml -f private-network.yaml up --scale client=2 
 ```
-to start a client and attach it to the local private-network where you run reducer and combiner.
 
 > If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
 
-When clients are running, navigate to 'localhost:8090/control' to start the training. 
+When clients are running, navigate to the 'Ccontrol' page of the Reducer to start the training. 
 
 ### Configuring the client
 We have made it possible to configure a couple of settings to vary the conditions for the training. These configurations are expsosed in the file 'settings.yaml': 
