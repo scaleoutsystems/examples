@@ -3,16 +3,15 @@ This classic example of hand-written text recognition is well suited both as a l
 
 > Note that this example shows how to configure FEDn for training, and how to configure and start clients. We assume that a FEDn network is aleady up and running with a blank, unconfigured Reducer. If this is not the case, start here: https://github.com/scaleoutsystems/fedn/blob/master/README.md
 
+### Local training and test data
+This example ships with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'. 
+
 ## Configuring the Reducer  
 Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/package.tar.gz' and the initial model in 'initial_model/initial_model.npz'. 
 
 ## Attaching a client to the federation
 
-### Download client.yaml from the Reducer
-Download client.yaml from the Reducer 'Network' page, and replace the content in your local 'client.yaml'.
-
-### Local training and test data
-This example ships with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'. 
+First, download 'client.yaml' from the Reducer 'Network' page, and replace the content in your local 'client.yaml'. 
 
 ### Start the client
 
