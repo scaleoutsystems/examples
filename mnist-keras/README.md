@@ -6,14 +6,15 @@ This classic example of hand-written text recognition is well suited both as a l
 ## Configuring the Reducer  
 Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/mnist.tar.gz' and the initial model in 'initial_model/initial_model.npz'. 
 
-## Setting up a client
+## Starting a client
 
-### Provide local training and test data
+### Local training and test data
 This example is provided with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'.
 To make testing flexible, each client subsamples from this dataset upon first invokation of a training request, then cache this subsampled data for use for the remaining lifetime of the client. It is thus normal that the first training round takes a bit longer than subssequent ones.  
 
-## Download or configure client.yaml
-Download client.yaml from the Reducer 'Network' page,  and replace the content in 'client.yaml'.
+## Download client.yaml
+Download client.yaml from the Reducer 'Network' page,  and replace the content in your local 'client.yaml'.
+
 The client.yaml file  contains all the required information for a client to connect to a federation.
 
 ## Start the client
@@ -24,16 +25,11 @@ docker-compose up -f ../config/private-network.yaml --scale client=2
 ```
 to start a client and attach it to the local private-network where you run reducer and combiner.
 
+> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
 
-> Note that this assumes that a FEDn network is running in pseudo-distributed mode (see separate deployment instructions) and uses the default service names. If you are connecting to a reducer part of a distributed setup, first, edit 'fedn-network.yaml' to provide IP address to the reducer. Also provide an 'extra_hosts.yaml' file with combiner:host mappings (edit the file according to your network)
+When clients are running, navigate to 'localhost:8090/control' to start the training. 
 
-```bash
-docker-compose -f docker-compose.yaml -f extra-hosts.yaml up 
-```
-
-When clients are running, navigate to 'localhost:8090/start' to start the training. 
-
-### Configuring the tests
+### Configuring the client
 We have made it possible to configure a couple of settings to vary the conditions for the training. These configurations are expsosed in the file 'settings.yaml': 
 
 ```yaml 
@@ -46,5 +42,22 @@ bias: 0.7
 # Parameters for local training
 batch_size: 32
 epochs: 1
+```
+
+## Creating a compute package
+Whenever you make updates to the client code (such as altering any of the settings in the above mentioned file), you need to re-package the compute package:
+
+```bash
+tar -czvf package.tar.gz client
+```
+To clear the system and set a new compute package, see: https://github.com/scaleoutsystems/fedn/blob/master/docs/FAQ.md
+
+For an explaination of the compute package structure and content: https://github.com/scaleoutsystems/fedn/blob/develop/docs/tutorial.md
+ 
+## Creating a new initial model
+The baseline CNN is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file.  If you wish to alter the initial model, edit 'init_model.py' and regenerate the seed file (install dependencies as needed, see requirements.txt):
+
+```bash
+python init_model.py 
 ```
 
