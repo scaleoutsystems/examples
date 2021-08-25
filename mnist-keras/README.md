@@ -33,7 +33,33 @@ To start 2 clients, assuming you are usign a pseudo-distributed FEDn network fro
 ```bash
 docker-compose -f docker-compose.yaml -f private-network.yaml up --scale client=2 
 ```
-> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
+> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. ## Starting a native client (FEDn)
+
+#### Native (Linux/OSX)
+
+1. Create a virtual environment and activate it
+```bash
+$ python3 -m venv env
+$ source env/bin/activate
+```
+
+2. Install the fedn client
+```bash
+$ pip install fedn
+```
+
+3. Setup the environment / install dependencies
+
+```bash
+$ pip install -r requirements.txt
+``` 
+  
+4. Start the client. 
+```bash
+$ fedn run client -in client.yaml
+```
+
+(Repeat above steps as needed to deploy additional clients, minimum requirement 1 client for examples).
 
 ### Start training 
 When clients are running, navigate to the 'Control' page of the Reducer to start the training. 
