@@ -28,7 +28,7 @@ docker build . -t mnist-client:latest
 docker run -v /absolute-path-to-this-folder/data/:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default mnist-client fedn run client -in client.yaml 
 ```
 
-#### Docker-compose
+#### docker-compose
 To start 2 clients, assuming you are usign a pseudo-distributed FEDn network from the getting started guide in the main fedn repository: 
 
 ```bash
