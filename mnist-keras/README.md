@@ -3,35 +3,18 @@ This classic example of hand-written text recognition is well suited both as a l
 
 > Note that this file descibes how to configure an alliance for a particular FedML-model and how to attach clients. We here assume that a FEDn network is aleady up and running. If this is not the case, start here: https://github.com/scaleoutsystems/fedn/blob/master/README.md
 
+## Configuring the Reducer  
+Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/mnist.tar.gz' and the initial model in 'initial_model/initial_model.npz'. 
+
 ## Setting up a client
 
 ### Provide local training and test data
 This example is provided with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'.
 To make testing flexible, each client subsamples from this dataset upon first invokation of a training request, then cache this subsampled data for use for the remaining lifetime of the client. It is thus normal that the first training round takes a bit longer than subssequent ones.  
 
-### Create and upload a compute package
-To train a model in FEDn you provide the client code (in 'client') as a tarball. For convenience, we ship a pre-made package. Whenever you make updates to the client code (such as altering any of the settings in the above mentioned file), you need to re-package the code (as a .tar.gz archive) and copy the updated package to 'packages'. From 'test/mnist-keras':
-
-```bash
-tar -cf mnist.tar client
-gzip mnist.tar
-cp mnist.tar.gz package/
-```
-
-Navigate to 'https://localhost:8090/start' and follow the link to 'context' to upload the compute package. 
- 
-## Creating a seed model
-The baseline CNN is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file, which is uploaded as the seed model for federated training. For convenience we ship a pregenerated seed model in the 'seed/' directory. If you wish to alter the base model, edit 'init_model.py' and regenerate the seed file (install dependencies as needed):
-
-```bash
-python init_model.py 
-```
-
-Navigate to 'localhost:8090/history' to upload the seed model. 
 ## Download or configure client.yaml
-Download client.yaml from the reducer and place it in the directory where your example resides.
-This client.yaml file will contain all the required information for a client to connect to a federation.
-The example is pre-configured to accept a client.yaml file as argument. Check docker-compose.yaml for more details of how the running of a client can be modified.
+Download client.yaml from the Reducer 'Network' page,  and replace the content in 'client.yaml'.
+The client.yaml file  contains all the required information for a client to connect to a federation.
 
 ## Start the client
 The easiest way to start clients for quick testing is by using Docker. We provide a docker-compose template for convenience:
@@ -64,3 +47,4 @@ bias: 0.7
 batch_size: 32
 epochs: 1
 ```
+
