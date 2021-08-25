@@ -23,7 +23,7 @@ This example ships with the mnist dataset from https://s3.amazonaws.com/img-data
 docker build . -t mnist-client:latest
 ```
 
-2. Start a client 
+2. Start a client (edit the path of the volume mounts to provide the absolute path to your local folder.)
 ```
 docker run -v /absolute-path-to-this-folder/data/:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default mnist-client fedn run client -in client.yaml 
 ```
