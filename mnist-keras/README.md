@@ -11,9 +11,11 @@ Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow ins
 
 ## Attaching a client to the federation
 
-First, download 'client.yaml' from the Reducer 'Network' page, and replace the content in your local 'client.yaml'. 
-
-### Start the client
+1. First, download 'client.yaml' from the Reducer 'Network' page, and replace the content in your local 'client.yaml'. 
+2. Start a client. Here there are different options (see below): 
+    a) Docker 
+    b) docker-compose
+    c) [Native (OSX/Linux)](https://github.com/scaleoutsystems/examples/tree/main/how-tos/start-native-fedn-client)
 
 #### Docker
 1. Build the image
