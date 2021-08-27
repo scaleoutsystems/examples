@@ -28,16 +28,15 @@ docker build . -t mnist-client:latest
 ```
 docker run -v /absolute-path-to-this-folder/data/:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default mnist-client fedn run client -in client.yaml 
 ```
+(Repeat above steps as needed to deploy additional clients).
 
 #### docker-compose
-To start 2 clients, assuming you are usign a pseudo-distributed FEDn network from the getting started guide in the main fedn repository: 
+To start 2 clients: 
 
 ```bash
 docker-compose -f docker-compose.yaml -f private-network.yaml up --scale client=2 
 ```
-> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. ## Starting a native client (FEDn)
-
-(Repeat above steps as needed to deploy additional clients).
+> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
 
 ### Start training 
 When clients are running, navigate to the 'Control' page of the Reducer to start the training. 
