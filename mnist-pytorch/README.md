@@ -1,62 +1,47 @@
-# MNIST test project (PyTorch version)
+# MNIST example - PyTorch version
 This classic example of hand-written text recognition is well suited both as a lightweight test when learning FEDn and developing on FEDn in psedo-distributed mode. A normal high-end laptop or a workstation should be able to sustain at least 5 clients. The example is also useful for general scalability tests in fully distributed mode. 
 
-## Setting up a client
+> Note that this example shows how to configure FEDn for training, and how to configure and start clients. We assume that a FEDn network is aleady up and running with a blank, unconfigured Reducer. If this is not the case, start here: https://github.com/scaleoutsystems/fedn/blob/master/README.md
 
-> Note that this assumes that a FEDn network is up and running with the "pytorch" helper, which is identified in "config/settings-reducer.yaml" (see separate deployment instructions). If you are connecting against a reducer part of a distributed setup and provide a 'extra_hosts' file.
+### Local training and test data
+This example ships with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'. 
 
-### Provide local training and test data
-This example is provided with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'. 
-To make testing flexible, each client subsamples from this dataset upon first invokation of a training request, then cache this subsampled data for use for the remaining lifetime of the client. It is thus normal that the first training round takes a bit longer than subssequent ones.
+## Configuring the Reducer  
+Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/package.tar.gz' and the initial model in 'initial_model/initial_model.npz'. 
 
-## Configure reducer
+## Attaching a client to the federation
 
-Navigate to `https://localhost:8090/` to start configuring the reducer.
+1. First, download 'client.yaml' from the Reducer 'Network' page, and replace the content in your local 'client.yaml'. 
+2. Start a client. Here there are different options (see below): 
+    a) Docker 
+    b) docker-compose
+    c) [Native (OSX/Linux)](https://github.com/scaleoutsystems/examples/tree/main/how-tos/start-native-fedn-client)
 
-### Step 1 Use the provided compute package
-Following the guide to configure the reducer you will be prompted to upload a compute package.
-For this example please select `PyTorch` as helper and select the file in the folder `package/` as provided.
+#### Docker
+1. Build the image
 
-### _Step 1 - alternative Creating a compute package (optional)_
-To train a model in FEDn you provide the client code (in 'client') as a tarball (you set the name of the package in 'settings-reducer.yaml'). For convenience, we ship a pre-made package. Whenever you make updates to the client code (such as altering any of the settings in the above mentioned file), you need to re-package the code (as a .tar.gz archive), clear the database, restart the reducer and re-upload the package. From 'test/mnist':
-
-```bash
-tar -cf mnist.tar client
-gzip mnist.tar
-cp mnist.tar.gz packages/
+``` bash
+docker build . -t mnist-client:latest
 ```
 
-### Step 2 - Use the provided initial model 
-Existing in `initial_model` folder, select the file from the reducer configuration guide and upload by following the prompted messages.
+2. Start a client (edit the path of the volume mounts to provide the absolute path to your local folder.)
+```
+docker run -v /absolute-path-to-this-folder/data/:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default mnist-client fedn run client -in client.yaml 
+```
+(Repeat above steps as needed to deploy additional clients).
 
-### _Step 2 - alternative Creating a initial model (optional)_
-The baseline CNN is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serialized that to a file, which is uploaded as the seed model for federated training. For convenience we ship a pregenerated seed model in the 'seed/' directory. If you wish to alter the base model, edit 'init_model.py' and regenerate the initial model file:
+#### docker-compose
+To start 2 clients: 
 
 ```bash
-python init_model.py 
+docker-compose -f docker-compose.yaml -f private-network.yaml up --scale client=2 
 ```
+> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
 
-### Step 3 - Start the client
-The easiest way to start clients for quick testing is by using Docker. We provide a docker-compose template for convenience:
+### Start training 
+When clients are running, navigate to the 'Control' page of the Reducer to start the training. 
 
-```bash
-docker-compose up -f ../../config/private-network.yaml --scale client=2
-```
-> Note that this assumes that a FEDn network is running in pseudo-distributed mode (see separate deployment instructions) and uses the default service names. If you are connecting to a reducer part of a distributed setup, first, edit 'fedn-network.yaml' to provide information about the reducer endpoint. Then run following command in project directory: provide a 'extra_hosts' file with combiner:host mappings (edit the file according to your network)
-
-```bash
-docker-compose -f docker-compose.yaml -f ../../config/private-network.yaml -f extra-hosts.yaml up 
-```
-
-When clients are running, navigate to 'localhost:8090/start' to start the training.
-### Step 4 - Start the Federation
-Return to the reducer and configure a desired run configuration under `https://localhost:8090/control`
-
-Start and watch dashboard and network to observe progress as the example federation iterates on federated the model.
-
-## Configuring the example
-
-### Configuring the tests (optional)
+### Configuring the client
 We have made it possible to configure a couple of settings to vary the conditions for the training. These configurations are expsosed in the file 'settings.yaml': 
 
 ```yaml 
@@ -69,4 +54,21 @@ bias: 0.7
 # Parameters for local training
 batch_size: 32
 epochs: 1
+```
+
+## Creating a compute package
+Whenever you make updates to the client code (such as altering any of the settings in the above mentioned file), you need to re-package the compute package:
+
+```bash
+tar -czvf package.tar.gz client
+```
+To clear the system and set a new compute package, see: https://github.com/scaleoutsystems/fedn/blob/master/docs/FAQ.md
+
+For an explaination of the compute package structure and content: https://github.com/scaleoutsystems/fedn/blob/develop/docs/tutorial.md
+ 
+## Creating a new initial model
+The baseline CNN is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file.  If you wish to alter the initial model, edit 'init_model.py' and regenerate the seed file (install dependencies as needed, see requirements.txt):
+
+```bash
+python init_model.py 
 ```
