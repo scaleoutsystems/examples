@@ -13,7 +13,7 @@ Steps:
 
 1. Create a "STACKn Default" project (after, refresh the page until all apps are available, look for 'mlflow-server' under "Misc".)
 2. Start a new lab session (_Compute -> New -> Lab_) on the main Overview page. Name can be anything, select "project-vol" as Persistent Volume and leave the rest as defaults. 
-3. Upload the _mnist_example_tf_serving.ipynb notebook_ to your project folder in labs (project-vol).
+3. Upload the _mnist_example_tf_serving.ipynb notebook_ to your project folder in labs (project-vol). Alternatively `wget https://raw.githubusercontent.com/scaleoutsystems/examples/main/tutorials/studio/quickstart/mnist_example_tf_serving.ipynb` in the Jupyter terminal.
 4. Run the notebook up to (and including) the cell where the model is saved (`tf.saved_model.save...`).
 5. In the Jupyter terminal (from your project folder, 'models' should be a subdirectory)
 
