@@ -1,4 +1,4 @@
-# MNIST example
+# MNIST example - Keras version
 This classic example of hand-written text recognition is well suited both as a lightweight test when learning FEDn and developing on FEDn in psedo-distributed mode. A normal high-end laptop or a workstation should be able to sustain at least 5 clients. The example is also useful for general scalability tests in fully distributed mode. 
 
 > Note that this example shows how to configure FEDn for training, and how to configure and start clients. We assume that a FEDn network is aleady up and running with a blank, unconfigured Reducer. If this is not the case, start here: https://github.com/scaleoutsystems/fedn/blob/master/README.md
@@ -11,9 +11,11 @@ Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow ins
 
 ## Attaching a client to the federation
 
-First, download 'client.yaml' from the Reducer 'Network' page, and replace the content in your local 'client.yaml'. 
-
-### Start the client
+1. First, download 'client.yaml' from the Reducer 'Network' page, and replace the content in your local 'client.yaml'. 
+2. Start a client. Here there are different options (see below): 
+    - Docker 
+    - docker-compose
+    - [Native client (OSX/Linux)](https://github.com/scaleoutsystems/examples/tree/main/how-tos/start-native-fedn-client)
 
 #### Docker
 1. Build the image
@@ -26,16 +28,15 @@ docker build . -t mnist-client:latest
 ```
 docker run -v /absolute-path-to-this-folder/data/:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default mnist-client fedn run client -in client.yaml 
 ```
+(Repeat above steps as needed to deploy additional clients).
 
 #### docker-compose
-To start 2 clients, assuming you are usign a pseudo-distributed FEDn network from the getting started guide in the main fedn repository: 
+To start 2 clients: 
 
 ```bash
 docker-compose -f docker-compose.yaml -f private-network.yaml up --scale client=2 
 ```
-> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. ## Starting a native client (FEDn)
-
-(Repeat above steps as needed to deploy additional clients).
+> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
 
 ### Start training 
 When clients are running, navigate to the 'Control' page of the Reducer to start the training. 
