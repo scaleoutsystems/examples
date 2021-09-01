@@ -4,7 +4,7 @@ from models.imdb_model import create_seed_model
 if __name__ == '__main__':
     # Create a seed model and push to Minio
     model = create_seed_model()
-    outfile_name = "../seed/seed.npz"
+    outfile_name = "../initial_model/initial_model.npz"
 
     weights = model.get_weights()
     helper = KerasHelper()

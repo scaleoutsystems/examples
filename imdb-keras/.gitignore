@@ -134,6 +134,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# temp
+.idea/
 # Fonts and icons
 static/open-iconic/
 

@@ -1,0 +1,122 @@
+version: '3.3'
+services:
+  client1:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/0:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client2:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/1:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client3:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/2:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client4:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/3:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client5:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/4:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client6:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/5:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client7:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/6:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client8:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/7:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client9:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/8:/app/data
+      - ./client.yaml:/app/client.yaml
+
+  client10:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "nlp-imdb:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/9:/app/data
+      - ./client.yaml:/app/client.yaml
+
