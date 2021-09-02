@@ -2,7 +2,7 @@
 
 This repository hosts examples, how-tos and tutorials for FEDn and STACKn. 
 
-The examples in this repository are all maintained by Scaleout and/or core developers in the community, and can be expected to be regularly updated with each new release of the software. Please read the README in each respective example for more information. Please read the README in each respective example for more information.
+The examples in this repository are all maintained by Scaleout and/or core developers in the community, and can be expected to be regularly updated with each new release of the software. Please read the README in each respective example for more information. 
 
  - mnist-keras: Getting started with FEDn (MNIST, Keras version)
  - mnist-pytorch: Getting started with FEDn (MNIST, Pytorch version)
