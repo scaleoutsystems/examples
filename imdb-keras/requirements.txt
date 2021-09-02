@@ -1,0 +1,6 @@
+numpy
+keras
+tensorflow<2.6.0
+sklearn
+flask
+minio

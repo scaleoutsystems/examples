@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+ client:
+  extra_hosts:
+    combiner-ssc: 13.53.197.49
+

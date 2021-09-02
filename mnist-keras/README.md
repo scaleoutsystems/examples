@@ -67,9 +67,12 @@ To clear the system and set a new compute package, see: https://github.com/scale
 For an explaination of the compute package structure and content: https://github.com/scaleoutsystems/fedn/blob/develop/docs/tutorial.md
  
 ## Creating a new initial model
-The baseline CNN is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file.  If you wish to alter the initial model, edit 'init_model.py' and regenerate the seed file (install dependencies as needed, see requirements.txt):
+The baseline CNN is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file.  If you wish to alter the initial model, edit 'init_model.py' and 'models/mnist_model.py' then regenerate the initial model file (install dependencies as needed, see requirements.txt):
 
 ```bash
 python init_model.py 
 ```
+
+## License
+Apache-2.0 (see LICENSE file for full information).
 
