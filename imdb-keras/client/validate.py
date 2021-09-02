@@ -14,7 +14,7 @@ def validate(model, data):
         model_score = model.evaluate(x_test, y_test, verbose=0)
         print('Testing loss:', model_score[0])
         print('Testing accuracy:', model_score[1])
-        y_pred = model.predict_classes(x_test)
+        y_pred = (model.predict(x_test) > 0.5).astype("int32")
         clf_report = metrics.classification_report(y_test, y_pred)
 
     except Exception as e:
