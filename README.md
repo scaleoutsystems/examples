@@ -6,6 +6,7 @@ The examples in this repository are all maintained by Scaleout and/or core devel
 
  - mnist-keras: Getting started with FEDn (MNIST, Keras version)
  - mnist-pytorch: Getting started with FEDn (MNIST, Pytorch version)
+ - imdb-keras: FEDn sentiment analysis, IMDB dataset. 
  - how-tos: Various tips-and tricks when using FEDn and STACKn. 
 
 
