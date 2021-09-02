@@ -25,9 +25,9 @@ Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow ins
 docker build . -t imdb-client:latest
 ```
 
-2. Start a client (edit the path of the volume mounts to provide the absolute path to your local folder.)
+2. Start a client (edit the path of the volume mounts to provide the absolute path to your local folder.) and change the data partition in clients folder.
 ```
-docker run -v /absolute-path-to-this-folder/data/:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default imdb-client fedn run client -in client.yaml 
+docker run -v /absolute-path-to-this-folder/data/clients/0:/app/data -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default imdb-client fedn run client -in client.yaml 
 ```
 (Repeat above steps as needed to deploy additional clients).
 
