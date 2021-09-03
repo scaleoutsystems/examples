@@ -79,5 +79,7 @@ combiner:
  fedn run combiner -in settings-combiner.yaml
 ```
 
+## Clients
+
 Proceed to select and example and start clients, for example the [MNIST getting-started example using Keras/Tensorflow] (https://github.com/scaleoutsystems/examples/tree/main/mnist-keras) 
  
