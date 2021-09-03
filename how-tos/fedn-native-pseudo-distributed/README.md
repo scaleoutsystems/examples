@@ -1,6 +1,6 @@
 # Deploy FEDn on OSX/Linux 
 
-This how-to explains you to deploy a FEDn network usign the fedn python client. To get started using Docker and docker-compose, follow the [quick-start guide](https://github.com/scaleoutsystems/fedn/tree/master/docs#readme). 
+This how-to explains you to deploy a FEDn network usign the fedn Python client. To get started using Docker and docker-compose, follow the [quick-start guide](https://github.com/scaleoutsystems/fedn/tree/master/docs#readme). 
 
 Requirements: 
 - Linux/OSX
