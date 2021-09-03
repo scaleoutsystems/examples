@@ -8,7 +8,7 @@ Requirements:
 - Minio running on localhost:9000
 - MongoDB running on localhost:6534
 
-To deploy Mino and MondoDB, you can use the docker-compose templates as described [here](https://github.com/scaleoutsystems/fedn/tree/master/docs#readme), or follow their respective installation instructions. 
+To deploy Mino and MongoDB, you can use the docker-compose templates as described [here](https://github.com/scaleoutsystems/fedn/tree/master/docs#readme), or follow their respective installation instructions. 
 
 
 ## Install fedn and prepare the host machine
