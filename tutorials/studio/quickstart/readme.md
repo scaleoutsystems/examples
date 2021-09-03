@@ -1,3 +1,7 @@
+# STACKn/Studio quick tests
+
+This tutorial is intended as quick tests/examples to get started using STACKn / Studio. It assumes access to an already deployed STACKn instance. 
+
 _______________________
 ### Known Issues
 1. Occasionally you might see an error page reading something like "Suspicious activity...". This is due to a known bug, and not due to some suspicious activity. Click "Back" in your browser and reload the page, and it should work again.
