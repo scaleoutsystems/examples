@@ -2,7 +2,7 @@
 This classic example of sentiment analysis is well suited both as a lightweight test when learning FEDn and developing on FEDn in psedo-distributed mode. A normal high-end laptop or a workstation should be able to sustain at least 5 clients. The example is also useful for general scalability tests in fully distributed mode. 
 
 ### Local training and test data
-To download and prepare the partitioned dataset:
+To download and prepare the partitioned dataset (creates 10 partitions) in ./data/clients/0 etc:
 ``` bash
 python create_data_partitions.py
 ```
@@ -25,7 +25,7 @@ Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow ins
 docker build . -t imdb-client:latest
 ```
 
-2. Start a client (edit the path of the volume mounts to provide the absolute path to your local folder.) and change the data partition in clients folder.
+2. Start a client (edit the path of the volume mounts to provide the absolute path to your local folder) and change the data partition in clients folder.
 ```
 docker run -v /absolute-path-to-this-folder/data/clients/0:/app/data -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default imdb-client fedn run client -in client.yaml 
 ```
@@ -38,6 +38,13 @@ To start 10 clients:
 docker-compose -f docker-compose.yaml -f private-network.yaml up 
 ```
 > If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
+
+#### Native client on OSX/Linux
+The compute package assumes that the local dataset in in a folder 'data' in the same folder as you start the client. Make a new folder and copy the data partition you want to use into data:
+```bash
+cp data/clients/0/*.csv data/
+```
+Then [follow the instructions here](https://github.com/scaleoutsystems/examples/tree/main/how-tos/start-native-fedn-client) to start the client. 
 
 ### Start training 
 When clients are running, navigate to the 'Control' page of the Reducer to start the training. 
