@@ -1,6 +1,5 @@
-network_id: rf8056ba8.studio.scaleoutsystems.com-network
+network_id: reducer-network
 controller:
-    discover_host: rf8056ba8.studio.scaleoutsystems.com
-    discover_port: 443
+    discover_host: reducer
+    discover_port: 8090
     token: reducer_token
-    checksum: 1c9929b74f15c7ef06c8b6c9530b0e08
