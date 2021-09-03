@@ -96,5 +96,5 @@ combiner:
 
 ## Clients
 
-Proceed to select and example and start clients, for example the [MNIST getting-started example using Keras/Tensorflow] (https://github.com/scaleoutsystems/examples/tree/main/mnist-keras).  
+Proceed to select and example and start clients, for example the [MNIST getting-started example using Keras/Tensorflow.](https://github.com/scaleoutsystems/examples/tree/main/mnist-keras).  
  
