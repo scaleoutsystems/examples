@@ -1,8 +1,13 @@
 # Deploy FEDn on OSX/Linux 
 
-pip install fedn 
+## Install fedn and prepare the host machine
 
-Create folder and change owner to user: 
+1. Install FEDn
+```bash
+pip install fedn 
+```
+
+2. Create folder needed by Reducer, and set appropriate permissions: 
 
 ``` bash
 sudo mkdir /app
@@ -10,8 +15,7 @@ sudo mkdir /app/client/package
 sudo chown <user> /app
 ```
 
-## Reducer
-
+## Start Reducer
 
 Create a deployment directory (owned by user)
 ```bash
