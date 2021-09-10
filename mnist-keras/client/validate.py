@@ -58,7 +58,8 @@ def validate(model,data,settings):
         model_score_test = model.evaluate(x_test, y_test, verbose=0)
         print('Test loss:', model_score_test[0])
         print('Test accuracy:', model_score_test[1])
-        y_pred = model.predict_classes(x_test)
+        y_pred = model.predict(x_test)
+        y_pred = np.argmax(y_pred, axis=1)
         clf_report = metrics.classification_report(y_test.argmax(axis=-1),y_pred)
 
     except Exception as e:
