@@ -2,7 +2,7 @@ import numpy as np
 import os
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-import keras
+from tensorflow import keras
 
 def read_data(path, nr_examples=1000,trainset=True):
     """ Helper function to read and preprocess data for training with Keras. """
