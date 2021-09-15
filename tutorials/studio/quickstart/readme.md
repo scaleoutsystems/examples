@@ -145,10 +145,10 @@ To make the model useful it will be saved as a Tensorflow model and deployed in 
 3. Open a Jupyter Terminal and clone the FEDn repo
 ```bash
 cd project-volume
-git clone --depth 1 --single-branch --branch=develop https://github.com/scaleoutsystems/fedn.git
+git clone --depth 1 --single-branch --branch=main https://github.com/scaleoutsystems/examples.git
 ```
 5. Save the model as a Tensorflow model. 
-- Upload __deploy-fedn-mnist.ipynb__ from this repo to __fedn/test/mnist-keras/client__.
+- Upload __deploy-fedn-mnist.ipynb__ from this repo to __examples/mnist-keras/client__.
 - Open it and replace the model name with the most recent model name from 'minio-vol/fedn-models'
 - Run all cells to save the model.
 - A new object is created in STACKn via the Python API: ```stackn.create_object('fedn-mnist', release_type="minor")```
