@@ -145,7 +145,7 @@ To make the model useful it will be saved as a Tensorflow model and deployed in 
 3. Open a Jupyter Terminal and clone the FEDn repo
 ```bash
 cd project-volume
-git clone --depth 1 --single-branch --branch=main https://github.com/scaleoutsystems/examples.git
+git clone --depth 1 --single-branch --branch=develop https://github.com/scaleoutsystems/fedn.git
 ```
 5. Save the model as a Tensorflow model. 
 - Upload __deploy-fedn-mnist.ipynb__ from this repo to __fedn/test/mnist-keras/client__.
