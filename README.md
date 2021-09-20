@@ -9,6 +9,8 @@ The examples in this repository are all maintained by Scaleout and/or core devel
  - imdb-keras: FEDn sentiment analysis, IMDB dataset. 
  - how-tos: Various tips-and tricks when using FEDn and STACKn. 
 
+Join our [Discord community](https://discord.gg/CCRgjpMsVA) to get help, provide feedback and share your own use-case ideas.  
+
 
 ## External examples
 Below we maintain a list of public examples and projects by external users and partners. If you have an example that you want to include, talk to a core developer in [Discord](https://discord.gg/CCRgjpMsVA) and/or send a PR updating this README. To be included, please make sure to have a clear contact person listed for the example. 
