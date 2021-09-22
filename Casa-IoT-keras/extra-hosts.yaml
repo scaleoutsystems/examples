@@ -1,0 +1,92 @@
+version: '3.3'
+services:
+   client1:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client2:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client3:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client4:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client5:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client6:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client7:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client8:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client9:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client10:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client11:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client12:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client13:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client14:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client15:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client16:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client17:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client18:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client19:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client20:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client21:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client22:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client23:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client24:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client25:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client26:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client27:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client28:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client29:
+    extra_hosts:
+      combiner: 130.238.20.10 
+   client30:
+    extra_hosts:
+      combiner: 130.238.20.10 

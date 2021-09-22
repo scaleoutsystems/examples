@@ -1,0 +1,333 @@
+version: '3.3'
+services:
+  client1:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c0:/app/data
+      - ./client.yaml:/app/client.yaml
+  client2:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c1:/app/data
+      - ./client.yaml:/app/client.yaml
+  client3:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c2:/app/data
+      - ./client.yaml:/app/client.yaml
+  client4:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c3:/app/data
+      - ./client.yaml:/app/client.yaml
+  client5:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c4:/app/data
+      - ./client.yaml:/app/client.yaml
+  client6:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c5:/app/data
+      - ./client.yaml:/app/client.yaml
+  client7:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c6:/app/data
+      - ./client.yaml:/app/client.yaml
+  client8:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c7:/app/data
+      - ./client.yaml:/app/client.yaml
+  client9:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c8:/app/data
+      - ./client.yaml:/app/client.yaml
+  client10:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c9:/app/data
+      - ./client.yaml:/app/client.yaml
+  client11:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa1/c10:/app/data
+      - ./client.yaml:/app/client.yaml
+  client12:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c0:/app/data
+      - ./client.yaml:/app/client.yaml
+  client13:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c1:/app/data
+      - ./client.yaml:/app/client.yaml
+  client14:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c2:/app/data
+      - ./client.yaml:/app/client.yaml
+  client15:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c3:/app/data
+      - ./client.yaml:/app/client.yaml
+  client16:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c4:/app/data
+      - ./client.yaml:/app/client.yaml
+  client17:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c5:/app/data
+      - ./client.yaml:/app/client.yaml
+  client18:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c6:/app/data
+      - ./client.yaml:/app/client.yaml
+  client19:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c7:/app/data
+      - ./client.yaml:/app/client.yaml
+  client20:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c8:/app/data
+      - ./client.yaml:/app/client.yaml
+  client21:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c9:/app/data
+      - ./client.yaml:/app/client.yaml
+  client22:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa2/c10:/app/data
+      - ./client.yaml:/app/client.yaml
+  client23:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c0:/app/data
+      - ./client.yaml:/app/client.yaml
+  client24:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c1:/app/data
+      - ./client.yaml:/app/client.yaml
+  client25:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c2:/app/data
+      - ./client.yaml:/app/client.yaml
+  client26:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c3:/app/data
+      - ./client.yaml:/app/client.yaml
+  client27:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c4:/app/data
+      - ./client.yaml:/app/client.yaml
+  client28:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c5:/app/data
+      - ./client.yaml:/app/client.yaml
+  client29:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c6:/app/data
+      - ./client.yaml:/app/client.yaml
+  client30:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "casa:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/casa3/c7:/app/data
+      - ./client.yaml:/app/client.yaml
+

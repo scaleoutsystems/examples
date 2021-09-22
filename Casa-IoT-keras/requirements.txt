@@ -1,0 +1,7 @@
+numpy
+keras
+tensorflow
+sklearn
+flask
+minio
+pandas
