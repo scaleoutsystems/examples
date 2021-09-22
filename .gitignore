@@ -130,3 +130,6 @@ dmypy.json
 
 # temp
 .idea/
+
+.DS_Store
+
