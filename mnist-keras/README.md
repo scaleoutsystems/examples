@@ -14,7 +14,12 @@ Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow ins
 To simulate the scenario of each client using a unique dataset we will make partitions in 'data/clients' of the complete dataset in 'data/mnist.npz'. The python script below will create 10 partitions:
 
 ``` bash
-python create_data_partitions.py 
+python create_data_partitions.py
+```
+Alternativly, create the disired number of partitions (e.g. 5):
+
+``` bash
+python create_data_partitions.py 5
 ```
 
 ## Attaching a client to the federation
