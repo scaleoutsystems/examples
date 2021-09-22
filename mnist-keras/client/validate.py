@@ -2,7 +2,6 @@ import sys
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 from data.read_data import read_data
-import pickle
 import json
 from sklearn import metrics
 import os
@@ -19,12 +18,10 @@ def validate(model,data,settings):
 
     # Training error (Client validates global model on same data as it trains on.)
     try:
-        x_train = np.load('/tmp/local_dataset/x_train.npz')
-        y_train = np.load('/tmp/local_dataset/y_train.npz')
+        x_train = np.load('/tmp/local_dataset/x_train.npz', allow_pickle=True)
+        y_train = np.load('/tmp/local_dataset/y_train.npz', allow_pickle=True)
     except:
-        (x_train, y_train, classes) = read_data(data,
-                                                nr_examples=settings['training_samples'],
-                                                trainset=True)
+        (x_train, y_train, classes) = read_data(data, trainset=True)
         try:
             os.mkdir('/tmp/local_dataset')
             np.save('/tmp/local_dataset/x_train.npz', x_train)
@@ -35,12 +32,10 @@ def validate(model,data,settings):
 
     # Test error (Client has a small dataset set aside for validation)
     try:
-        x_test = np.load('/tmp/local_dataset/x_test.npz')
-        y_test = np.load('/tmp/local_dataset/y_test.npz')
+        x_test = np.load('/tmp/local_dataset/x_test.npz', allow_pickle=True)
+        y_test = np.load('/tmp/local_dataset/y_test.npz', allow_pickle=True)
     except:
-        (x_test, y_test, classes) = read_data(data,
-                                                nr_examples=settings['test_samples'],
-                                                trainset=False)
+        (x_test, y_test, classes) = read_data(data, trainset=False)
         try:
             os.mkdir('/tmp/local_dataset')
             np.save('/tmp/local_dataset/x_test.npz', x_test)
