@@ -50,7 +50,7 @@ To start 2 clients:
 docker-compose -f docker-compose.yaml -f private-network.yaml up 
 ```
 
-> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
+> If you are connecting to a Reducer with a distributed setup or in Studio, you should omit 'private-network.yaml'. 
 
 ### Start training 
 When clients are running, navigate to the 'Control' page of the Reducer to start the training. 
