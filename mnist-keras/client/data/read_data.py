@@ -19,4 +19,4 @@ def read_data(path, trainset=True):
     X = np.expand_dims(X,-1)
     X /= 255
     y = tf.keras.utils.to_categorical(y, len(classes))
-    return  (X, y, classes)
+    return  (X, y)

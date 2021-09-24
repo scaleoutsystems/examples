@@ -18,8 +18,7 @@ def train(model,data,settings):
         x_train = np.load('/tmp/local_dataset/x_train.npz')
         y_train = np.load('/tmp/local_dataset/y_train.npz')
     except:
-        (x_train, y_train, classes) = read_data(data,
-                                                trainset=True)
+        (x_train, y_train) = read_data(data, trainset=True)
 
         try:
             os.mkdir('/tmp/local_dataset')
