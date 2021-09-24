@@ -1,10 +1,7 @@
 from __future__ import print_function
 import sys
 import tensorflow as tf
-import tensorflow.keras as keras
-import tensorflow.keras.models as krm
 import numpy as np
-import pickle
 import yaml
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
@@ -21,9 +18,7 @@ def train(model,data,settings):
         x_train = np.load('/tmp/local_dataset/x_train.npz')
         y_train = np.load('/tmp/local_dataset/y_train.npz')
     except:
-        (x_train, y_train, classes) = read_data(data,
-                                                nr_examples=settings['training_samples'],
-                                                trainset=True)
+        (x_train, y_train) = read_data(data, trainset=True)
 
         try:
             os.mkdir('/tmp/local_dataset')

@@ -1,13 +1,24 @@
 version: '3.3'
 services:
-  client:
+  client0:
     environment:
       - GET_HOSTS_FROM=dns
-    image: "mnist-client-keras:latest"
+    image: "mnist-client:latest"
     build:
       context: .
     working_dir: /app
     command: /bin/bash -c "fedn run client -in client.yaml"
     volumes:
-      - ./data:/app/data:ro #mount as READ ONLY
+      - ./data/clients/0:/app/data:ro #mount as READ ONLY
+      - ./client.yaml:/app/client.yaml
+  client1:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "mnist-client:latest"
+    build:
+      context: .
+    working_dir: /app
+    command: /bin/bash -c "fedn run client -in client.yaml"
+    volumes:
+      - ./data/clients/1:/app/data:ro #mount as READ ONLY
       - ./client.yaml:/app/client.yaml

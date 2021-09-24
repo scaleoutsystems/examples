@@ -3,11 +3,24 @@ This classic example of hand-written text recognition is well suited both as a l
 
 > Note that this example shows how to configure FEDn for training, and how to configure and start clients. We assume that a FEDn network is aleady up and running with a blank, unconfigured Reducer. If this is not the case, start here: https://github.com/scaleoutsystems/fedn/blob/master/README.md
 
-### Local training and test data
-This example ships with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'. 
+## Local training and test data
+This example ships with the mnist dataset from https://s3.amazonaws.com/img-datasets/mnist.npz in 'data/mnist.npz'.
+This dataset will be partitioned to simulate unique datasets for each client. 
 
 ## Configuring the Reducer  
-Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/package.tar.gz' and the initial model in 'initial_model/initial_model.npz'. 
+Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/package.tar.gz' and the initial model in 'initial_model/initial_model.npz'.
+
+## Create partitions
+To simulate the scenario of each client using a unique dataset we will make partitions in 'data/clients' of the complete dataset in 'data/mnist.npz'. The python script below will create 10 partitions:
+
+``` bash
+python create_data_partitions.py
+```
+Alternativly, create the disired number of partitions (e.g. 5):
+
+``` bash
+python create_data_partitions.py 5
+```
 
 ## Attaching a client to the federation
 
@@ -17,7 +30,7 @@ Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow ins
     - docker-compose
     - [Native client (OSX/Linux)](https://github.com/scaleoutsystems/examples/tree/main/how-tos/start-native-fedn-client)
 
-#### Docker
+### Docker
 1. Build the image
 
 ``` bash
@@ -26,17 +39,18 @@ docker build . -t mnist-client:latest
 
 2. Start a client (edit the path of the volume mounts to provide the absolute path to your local folder.)
 ```
-docker run -v /absolute-path-to-this-folder/data/:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default mnist-client fedn run client -in client.yaml 
+docker run -v /absolute-path-to-this-folder/data/clients/0:/app/data:ro -v /absolute-path-to-this-folder/client.yaml:/app/client.yaml --network fedn_default mnist-client fedn run client -in client.yaml --name client0
 ```
-(Repeat above steps as needed to deploy additional clients).
+(Repeat above steps as needed to deploy additional clients but change the data partition (e.g. .../clients/1) and the --name).
 
-#### docker-compose
+### docker-compose
 To start 2 clients: 
 
 ```bash
-docker-compose -f docker-compose.yaml -f private-network.yaml up --scale client=2 
+docker-compose -f docker-compose.yaml -f private-network.yaml up 
 ```
-> If you are connecting to a Reducer part of a distributed setup or in Studio, you should omit 'private-network.yaml'. 
+
+> If you are connecting to a Reducer with a distributed setup or in Studio, you should omit 'private-network.yaml'. 
 
 ### Start training 
 When clients are running, navigate to the 'Control' page of the Reducer to start the training. 
@@ -45,10 +59,6 @@ When clients are running, navigate to the 'Control' page of the Reducer to start
 We have made it possible to configure a couple of settings to vary the conditions for the training. These configurations are expsosed in the file 'settings.yaml': 
 
 ```yaml 
-# Number of training samples used by each client
-training_samples: 600
-# Number of test samples used by each client (validation)
-test_samples: 100
 # How much to bias the client data samples towards certain classes (non-IID data partitions)
 bias: 0.7
 # Parameters for local training
@@ -70,8 +80,15 @@ For an explaination of the compute package structure and content: https://github
 The baseline CNN is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file.  If you wish to alter the initial model, edit 'init_model.py' and 'models/mnist_model.py' then regenerate the initial model file (install dependencies as needed, see requirements.txt):
 
 ```bash
-python init_model.py 
+python init_model.py
 ```
+
+## When you are done
+ Don't forget to tear down docker-compose resources, e.g.:
+ ```bash
+docker-compose -f docker-compose.yaml -f private-network.yaml down
+ ```
+
 
 ## License
 Apache-2.0 (see LICENSE file for full information).
