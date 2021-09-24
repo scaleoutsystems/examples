@@ -15,8 +15,8 @@ def train(model,data,settings):
     # We are caching the partition in the container home dir so that
     # the same training subset is used for each iteration for a client.
     try:
-        x_train = np.load('/tmp/local_dataset/x_train.npz', allow_pickle=True)
-        y_train = np.load('/tmp/local_dataset/y_train.npz', allow_pickle=True)
+        x_train = np.load('/tmp/local_dataset/x_train.npz')
+        y_train = np.load('/tmp/local_dataset/y_train.npz')
     except:
         (x_train, y_train, classes) = read_data(data,
                                                 trainset=True)

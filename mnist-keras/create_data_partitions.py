@@ -10,7 +10,7 @@ def splitset(dataset, parts):
     result = []
     for i in range(parts):
         result.append(dataset[i*local_n: (i+1)*local_n])
-    return result
+    return np.array(result)
 
 
 if __name__ == '__main__':

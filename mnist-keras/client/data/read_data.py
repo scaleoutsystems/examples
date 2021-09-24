@@ -4,7 +4,7 @@ import tensorflow as tf
 def read_data(path, trainset=True):
     """ Helper function to read and preprocess data for training with Keras. """
 
-    pack = np.load(path, allow_pickle=True)
+    pack = np.load(path)
 
     if trainset:
         X = pack['x_train']
