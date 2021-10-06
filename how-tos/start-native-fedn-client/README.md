@@ -7,7 +7,6 @@ $ python3 -m venv env
 $ source env/bin/activate
 ```
 
-
 2. Install the fedn client
 ```bash
 $ pip install fedn
@@ -39,5 +38,18 @@ $ fedn run client -in client.yaml
 9. From here you can monitor, instruct and direct your federation.
 (minimum requirement 1 client for examples).
 
+---
+
+It is possible to start a client listening to only the model update (trainer role) or model validation (validator role) channels:
+
+Trainer only: 
+```bash 
+fedn run client --name trainer_client --validator=False -in client.yaml
+```
+
+Validator only: 
+```bash 
+fedn run client --name validator_client --trainer=False -in client.yaml
+```
 
 
