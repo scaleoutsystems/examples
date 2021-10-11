@@ -110,42 +110,52 @@ Steps:
 
 11. You can play around by changing the values of the `example` and `msk_ind` variables. The latter will mask (or "hide") one of the words in the example sentence; then the prediction will shown the possible candidates for such "missing" word.
 
-# FEDn MNIST
+# FEDn MNIST-Keras
 
->Preparations: It helps to have a local copy of the FEDn repository available. Clone or download it from https://github.com/scaleoutsystems/fedn. You will also use deploy-fedn-mnist.ipynb and mnist-predict.ipynb from this repository (https://github.com/scaleoutsystems/test-examples)
+>Preparations: It helps to have available a local copy of this repository. In alternative you can download or clone it within your FEDn environment, e.g. within your Jupyter Lab session.
 
 ### Setting a reducer and combiner in STACKn
 1. Create a new project using the FEDn Project template.
 
-2. Wait for all resources to start. Reload the page until you see a running Jupyter Notebook under "Compute", a "FEDn Combiner" under FEDn and a "FEDn Reducer" under FEDn.
+2. Wait for all resources to start: you should see a "_FEDn Combiner_" and a "_FEDn Reducer_" under the "_FEDn_" tab.
 
-3. To train a model in FEDn you provide the client code as a tarball. For convenience, we ship a pre-made package (the 'client' folder in the FEDn repository) that defines what happens on the client side during training and validation, as well as some settings.
-- Open the link to the FEDn Reducer in a new tab
-- Click the '/context' link and upload mnist.tar.gz from https://github.com/scaleoutsystems/fedn/tree/master/test/mnist-keras/package
+3. Start a new Jupyter Lab instance under the "_Compute_" tab. 
 
-4. The baseline model (a CNN) is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file, which is uploaded as the seed model for federated training. For convenience we ship a pregenerated seed model in the 'seed/' directory. If you wish to alter the base model, edit 'init_model.py' and regenerate the seed file
-- Click 'History' in the left menu
-- Click 'Choose file:' and upload seed.npz from https://github.com/scaleoutsystems/fedn/tree/master/test/mnist-keras/seed
+4. To train a model in FEDn you provide the client code as a tarball. For convenience, we ship a pre-made compute package (the 'client' folder in the [FEDn repository](https://github.com/scaleoutsystems/examples/tree/main/mnist-keras/package)) that defines what happens on the client side during training and validation, as well as some settings.
+    
+    4.1 Under the FEDn tab in Studio, click and open the link to the FEDn Reducer in a new tab
 
-5. Go to 'Network' in the left menu and check that there is a combiner listed under 'Combiners', with 0 'Active clients'
+    4.2 Click the '/here' link for uploading a compute package. Then click on the "_browse_" button and upload `package.tar.gz` from [this repository](https://github.com/scaleoutsystems/examples/tree/main/mnist-keras/package); make sure to have copied such file locally before hand.
+
+5. The baseline model (a CNN) is specified in the file 'client/init_model.py'. This script creates an untrained neural network and serializes that to a file, which is uploaded as the seed model for federated training. For convenience we ship a pregenerated seed model in the 'seed/' directory. If you wish to alter the base model, edit 'init_model.py' and regenerate the seed file. For uploading the initial model:
+
+    5.1 Click on the browse button and upload the `initial_model.npz` file from the [same repository as above]((https://github.com/scaleoutsystems/examples/tree/main/mnist-keras/package))
+
+6. At this point you should have been redirected to the main Reducer UI. Go to '_Network_' in the left menu and check that there is a combiner listed under '_Combiners_', with a number of 0 'Active clients' for the time being.
 
 ### Setting up a local client
 We will now set up a separated client that will attach to the combiner. This should be done on a Linux/Unix machine with Docker.
 
-1. Clone the FEDn repo
+1. Clone the mnist-keras repo either locally or within your Jupiter Lab instance (by opening up a terminal session)
 ```bash
-git clone --depth 1 --single-branch --branch=develop https://github.com/scaleoutsystems/fedn.git
+git clone https://github.com/scaleoutsystems/examples/tree/main/mnist-keras/package
 ```
-2. Edit the fedn-network.yaml in fedn/test/mnist-keras/. Change the __discover_host__ to the URL of the FEDn Reducer (e.g. copy it from the browser URL bar, omit the scheme and trailing slash, so for instance: ```reducer-fedn-mnist-hbr-0491.studio.safespring-prod.stackn.dev```). Change the __discover_port__ to __443__.
+2. Edit the `client.yaml` file in order to change as follows:
 
-3. Rebuild the client
+    2.1 set "_discover_host:_" to the URL of the FEDn Reducer within your newly created project
+
+    2.2 Finally set "_discover_port_" to 443.
+
+**Note**: copy the URL from the browser and omit the scheme and trailing slash. For instance from a URL string such as `https://reducer.studio.scaleoutsystems.com/` copy only `reducer.studio.scaleoutsystems.com`
+
+3. Rebuild the client docker image. You will find a Dockerfile within the root directory of the mnist-keras example to be used.
 ```bash
 docker build -t client-local:latest .
 ```
 
 4. Run the Docker image
 ```bash
-docker run -it -v /absolute/path/to/fedn/test/mnist-keras/data:/app/data client-local:latest fedn run client -in fedn-network.yaml
+docker run -it -v $PWD/data:/app/data client-local:latest -v $PWD/client.yaml:/app/client.yaml fedn run client -in client.yaml
 ```
 
 ### Run federated training 
