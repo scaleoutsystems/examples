@@ -80,16 +80,6 @@ Steps:
 3. Deploy the model with "Python Model Deployment". It takes a long time for this model to initialize, so keep checking the logs until it is available. That the "State" is "Running" does not mean that the model has initialized, only that the container is running.
 4. Copy the endpoint url, paste it in the appropriate place in the "predict" notebook in the repository, and run the prediction.
 
-# MLflow
-
-1. Create a STACKn default project.
-2. Create a Jupyter Lab instance.
-3. In your project volume, upload the notebook "mnist_train.ipynb", and run all cells.
-4. In MLflow, click the run, scroll down to "artifacts", select the model, and click "Create model".
-5. Verify that the model exists in STACKn under "Objects"->MLflow.
-6. Go to Serve, deploy the model with the "MLflow Serve" app.
-7. Go to your notebook, upload mnist_predict.ipynb, change the URL to your endpoint and verify that it works.
-
 # FEDn MNIST
 
 >Preparations: It helps to have a local copy of the FEDn repository available. Clone or download it from https://github.com/scaleoutsystems/fedn. You will also use deploy-fedn-mnist.ipynb and mnist-predict.ipynb from this repository (https://github.com/scaleoutsystems/test-examples)
