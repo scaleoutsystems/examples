@@ -101,8 +101,10 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
         print(content_type)
         contentb64_decode = base64.b64decode(content_string)
         file_obj = io.BytesIO(contentb64_decode)
+        # If you are running locally with self signed certificate, then CHANGE the verify variable to False
+        verify = True
         try:
-            res = requests.put(url, data=file_obj)
+            res = requests.put(url, verify, data=file_obj)
         except Exception as e:
             print(e)
         res_dict = eval(res.text)
