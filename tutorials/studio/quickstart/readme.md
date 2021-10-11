@@ -15,7 +15,7 @@ Purpose is to build and deploy a simple neural network.
 
 Steps:
 
-1. Create a "STACKn Default" project (after, refresh the page until all apps are available, look for 'mlflow-server' under "Misc".)
+1. Create a "STACKn Default" project (wait a bit and refresh the page until all apps are created and available)
 2. Start a new lab session (_Compute -> New -> Lab_) on the main Overview page. Name can be anything, select "project-vol" as Persistent Volume and leave the rest as defaults. 
 3. Upload the _mnist_example_tf_serving.ipynb notebook_ to your project folder in labs (project-vol). Alternatively `wget https://raw.githubusercontent.com/scaleoutsystems/examples/main/tutorials/studio/quickstart/mnist_example_tf_serving.ipynb` in the Jupyter terminal.
 4. Run the notebook up to (and including) the cell where the model is saved (`tf.saved_model.save...`).
@@ -63,15 +63,21 @@ Steps:
 
 # PyTorch
 
-1. Run ```git-lfs pull``` in the "test-examples" directory to download the PyTorch model archive (VGG_scripted.mar). If you need to install git-lfs, see for instance: https://git-lfs.github.com/.
-1. In your STACKn default project, go to your Minio instance and create a bucket, say "pytorch". Upload the VGG_scripted.mar model archive.
-2. Deploy the model with the "PyTorch Serve" app, the endpoint should be "public" and the volume should be your minio volume. Path to model store is your bucket name. List of models can be left empty (then, by default, all models in the directory will be deployed).
-3. Create a volume for a Dash app.
-4. Go to "Misc" and launch a VSCode instance where you mount your newly created volume.
-5. Clone this repository: https://github.com/stefanhellander/dash-test.git to your volume.
-6. Deploy the app with the app "Dash Deployment" (under "Serve", path should be relative to your volume, so probably "dash-test", let "Debug deployment" be "False")
-7. In VSCode, go to your folder under "/home/stackn" and update the app with your model endpoint. Note that the model name is "vgg11_scripted", so the URL should be for example: ```https://torch-serve-aml-test-haa-a438.studio.local.stackn.dev/predictions/vgg11_scripted```
-8. Test the app! You can use "ball.jpeg" in the "test-examples" repository.
+1. You can either clone this repo or just download locally the file called `vgg11_scripted.mar`
+2. Create a "STACKn Default" project (wait a bit and refresh the page until all apps are created and available).
+3. In your STACKn default project, open your Minio instance (by clicking on the Minio name link).
+4. Once you are redirected to the Minio UI, perform the log in by entering the access key and secrets (**tips**: they are available under the settings tab of the Minio app).
+5. Create a bucket, say "pytorch", and Upload the `vgg11_scripted.mar` model archive.
+6. Deploy the model with the _PyTorch Serve_ app (under the _Serve_ tab); the endpoint permissions should be "_public_" and the volume should be your Minio volume. Path to model store is your bucket name (e.g. "pytorch"). List of models can be left empty (then, by default, all models in the directory will be deployed). Few steps later you will use your PyTorch endpoit URL for running predictions.
+7. Create a new _volume_ for a Dash app, say "dash-vol".
+8. Go to the _Develop_ tab and launch a VSCode instance where you mount your newly created volume (e.g. "dash-vol") as a persisten volume for VSCode.
+9. In your VSCode instance clone this repository and open the sub-folder _dash-test_. (**tips**: it should be possible to clone this sub-folder only with git).
+10. Go under the _Serve_ tab and copy your PyTorch endpouint URL. (**tips**: right-click on the "_open_" link and copy the URL)
+11. In VSCode, go to the _dash-test_ folder and update line of 97 the `app.py` file with your PyTorch endpoint URL. **Note**: since the model name is "vgg11_scripted", so the URL should be for example: ```https://torch-serve.studio.local.stackn.dev/predictions/vgg11_scripted```
+12. Deploy the dash app with the related _Dash Deployment_ component (under _Serve_ tab): _Permissions_ can be either "public" or "project"; mount the created volume (e.g."dash-vol"); _Path to folder_ should be relative to your volume and it should be the "dash-test" sub-folder clone or downloaded in the previous step; finally and importantly, let _Debug deployment_ be "False".
+13. Open the Dash App UI (by clickin on the "_open_" link)
+14. Test the app! You can use "ball.jpeg" which you can find in this repository or any other image.
+15. Last but not least, have fun!
 
 # Transformers example project
 
