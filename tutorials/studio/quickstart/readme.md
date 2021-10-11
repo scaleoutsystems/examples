@@ -81,10 +81,43 @@ Steps:
 
 # Transformers example project
 
-1. Clone the repo onto a volume: https://github.com/scaleoutsystems/transformers-example-project
-2. In the repository directory, run ```stackn create object afbert -r minor```.
-3. Deploy the model with "Python Model Deployment". It takes a long time for this model to initialize, so keep checking the logs until it is available. That the "State" is "Running" does not mean that the model has initialized, only that the container is running.
-4. Copy the endpoint url, paste it in the appropriate place in the "predict" notebook in the repository, and run the prediction.
+1. Create a "STACKn Default" project (wait a bit and refresh the page until all apps are created and available)
+
+2. Start a new Jupyter Lab session (_Compute -> New -> Jupiter Lab_) on the Dashboard overview page. _Name_ can be anything, select "project-vol" as Persistent Volume and leave the rest as defaults.
+
+3. Launch a new terminal from within your Jupyter instance and clone the following repository inside the "project-vol" folder:
+    
+    3.1 `cd project-vol`
+
+    3.2 `git clone https://github.com/scaleoutsystems/transformers-example-project` 
+
+4. Install the pip requirements and enable the Jupyter notebook extension:
+    
+    4.1 `pip install -r requirements.txt`
+
+    4.2 `jupyter nbextension enable --py widgetsnbextension` 
+
+5. Now you should be ready to open the `getting_started_with_swebert.ipynb` in the _notebooks_ folder. Please follow the notebook's instructions.
+
+6. Once you have run all the cells in the above notebook, open up again the terminal and execute the following command within the repository directory:
+    
+    6.1 `stackn create object afbert -r minor` (**Note:** add the flag `--insecure` in case you have deployed STACKn locally with a self-signed certificate)
+
+    6.2 `stackn get objects` (**Note:** add the flag `--insecure` in case you have deployed STACKn locally with a self-signed certificate)
+    
+    (Check that the model is listed; you should be able to see the newly created model object in your Studio UI, under the "_Objects_" tab)
+
+7. Deploy the newly created model object with the "_Python Model Deployment_" component (under the "_Serve_" tab in Studio). _Name_ can be anything, _Model_ should match the name of the newly created model (e.g. "afbert:v0.1.0"); leave the rest as defaults.
+
+    **Note:** It could take some time for this model to initialize, so keep checking the logs until it is available and wait until it is running successfully.
+
+8. Once the above serving app is up and running, copy the endpoint URL by right-clicking on the _Open_ link.
+
+9. Go back to your Jupyter Lab and open the `predict.ipynb` notebook under the _notebooks_ folder. Paste the copied URL at line 12 in order to use the correct endpoint for the prediction.
+
+10. It is time to test the prediction! Run all the cells and check the results.
+
+11. You can play around by changing the values of the `example` and `msk_ind` variables. The latter will mask (or "hide") one of the words in the example sentence; then the prediction will shown the possible candidates for such "missing" word.
 
 # FEDn MNIST
 
