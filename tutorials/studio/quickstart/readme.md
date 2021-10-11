@@ -2,11 +2,6 @@
 
 This tutorial is intended as quick tests/examples to get started using STACKn / Studio. It assumes access to an already deployed STACKn instance. 
 
-_______________________
-### Known Issues
-1. Occasionally you might see an error page reading something like "Suspicious activity...". This is due to a known bug, and not due to some suspicious activity. Click "Back" in your browser and reload the page, and it should work again.
-___________________________
-
 General preparation: Download the Jupyter Notebooks from this repository, or be prepared to Git clone the repo or files as needed.
 
 # MNIST
@@ -34,32 +29,6 @@ Steps:
     6.3 A Tensorflow Serving service will pop up in the top of the window. Check logs to verify that it has deployed, (look for 'Entering the event loop ...') by clicking the folder icon.
 
 7. Get the endpoint (right click the _Open_ link), paste it into the Jupyter notebook and call the endpoint to verify that it works.
-
-
-# AML
-
-1. Create a STACKn default project, or create a volume in your existing project.
-
-2. Create a new lab session, then launch a terminal.
-
-3. Clone the AML repository to your volume: 
-
-    3.1 cd your-project-volume
-   
-    3.2 git clone https://github.com/scaleoutsystems/aml-example-project.git
-
-4. Create a model object in STACKn:
-
-    4.1 cd aml-example-project
-
-    4.2 Create a tar archive of the relevant folders: 
-    ```tar czvf ../aml-model.tar.gz src models requirements.txt setup.py helpers.py``` 
-    (we do this to avoid including the big "dataset" directory)
-
-    4.3 ```stackn create object aml -f ../aml-model.tar.gz -r minor```
-
-5. Deploy the model with the "Python Model Deployment" app.
-6. Get the endpoint, check the logs, and go to the notebook "notebooks/predict.ipynb" in the repository. Paste your URL, and make a prediction.
 
 # PyTorch
 
