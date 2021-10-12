@@ -119,7 +119,7 @@ Steps:
 
 2. Wait for all resources to start: you should see a "_FEDn Combiner_" and a "_FEDn Reducer_" under the "_FEDn_" tab.
 
-3. Start a new Jupyter Lab instance under the "_Compute_" tab. 
+3. Start a new Jupyter Lab instance under the "_Compute_" tab and make sure to select "_minio-vol_" as Persistent Volume. 
 
 4. To train a model in FEDn you provide the client code as a tarball. For convenience, we ship a pre-made compute package (the 'client' folder in the [FEDn repository](https://github.com/scaleoutsystems/examples/tree/main/mnist-keras/package)) that defines what happens on the client side during training and validation, as well as some settings.
     
@@ -138,15 +138,20 @@ We will now set up a separated client that will attach to the combiner. This sho
 
 1. Clone the mnist-keras repo either locally or within your Jupiter Lab instance (by opening up a terminal session)
 ```bash
-git clone https://github.com/scaleoutsystems/examples/tree/main/mnist-keras/package
+git clone https://github.com/scaleoutsystems/examples
+cd mnist-keras
 ```
 2. Edit the `client.yaml` file in order to change as follows:
 
-    2.1 set "_discover_host:_" to the URL of the FEDn Reducer within your newly created project
+    2.1 set "_network_id_" to to the URL of the FEDn Reducer within your newly created project followed by `-network`, for example `reducer.studio.scaleoutsystems.com-network`
 
-    2.2 Finally set "_discover_port_" to 443.
+    2.2 set "_discover_host:_" to only the URL of the FEDn Reducer, for example `reducer.studio.scaleoutsystems.com`
+
+    2.3 Finally, set "_discover_port_" to 443
 
 **Note**: copy the URL from the browser and omit the scheme and trailing slash. For instance from a URL string such as `https://reducer.studio.scaleoutsystems.com/` copy only `reducer.studio.scaleoutsystems.com`
+
+Alternatively you can download an already configured `client.yaml` file from the Reducer UI "_Network_" tab. On the right of the network diagram you should see a blue download button that says "_Download client config_". Download such file and replace the one already available in the cloned repository.
 
 3. Rebuild the client docker image. You will find a Dockerfile within the root directory of the mnist-keras example to be used.
 ```bash
@@ -155,46 +160,80 @@ docker build -t client-local:latest .
 
 4. Run the Docker image
 ```bash
-docker run -it -v $PWD/data:/app/data client-local:latest -v $PWD/client.yaml:/app/client.yaml fedn run client -in client.yaml
+docker run -v $PWD/data:/app/data -v $PWD/client.yaml:/app/client.yaml -it client-local:latest fedn run client -in client.yaml
 ```
 
 ### Run federated training 
-Now it's time to run a few federated training rounds. Go to the Reducer web UI. 
-1. Go to 'Control' in the left menu.
-2. Run a few rounds of training by expanding the list after 'Run rounds:', selecting 3 and then 'Submit'
-3. Go to 'History' in the left menu and refresh until a new model name appears.
-4. Go to 'Dashboard' in the left menu to see stats about the training rounds as they complete. Refresh the page to update with results from more training rounds.
+Now it's time to run a few federated training rounds. Go to the Reducer web UI and:
 
-This completes the setup and training of a federated model!
+1. Go to "_Control_" tab in the left menu.
+
+2. In the "_Number of rounds_" field choose a value by either clicking on the - or + buttons (typing works fine too) and then click on the blue "_Start run_" button.
+
+3. You should be redirected automatically to the "_Events_" tab, which can also be found in the left menu. Here you can follow how the training process is going.
+
+**Note:** in terminal where you started and attached a FEDn client to the Reducer you should also see some actions!
+
+4. In the 'Dashboard' tab (also in the left menu) you can see stats about the training rounds as they complete. Refresh the page to update with results from more training rounds.
+
+5. Once the training and validation processes are completed, in the left menu under the "_Models_" tab you could find the output models
+
+This completes the setup and training of a federated model, well done!
 
 ### Publish and serve the model as an API
 To make the model useful it will be saved as a Tensorflow model and deployed in a serving container, as a publicly available web service.
 
-1. Go to the STACKn Overview page.
-2. Open the Jupyter service (open 'Lab' in a new tab).
-3. Open a Jupyter Terminal and clone the FEDn repo
+1. Go back to your Studio overview page by clicking on the "_Dahsboard_" tab.
+
+2. Open the Jupyter Lab instance that you have created at the beginning of this tutorial. Otherwise create a new one and make sure to select "_minio-vol_" as Persistent Volume.
+
+3. Open a terminal session and clone this repository locally within your `minio-vol` folder:
 ```bash
-cd project-volume
-git clone --depth 1 --single-branch --branch=main https://github.com/scaleoutsystems/examples.git
+cd minio-vol
+git clone https://github.com/scaleoutsystems/examples
 ```
-5. Save the model as a Tensorflow model. 
-- Upload __deploy-fedn-mnist.ipynb__ from this repo to __examples/mnist-keras/client__.
-- Open it and replace the model name with the most recent model name from 'minio-vol/fedn-models'
-- Run all cells to save the model.
-- A new object is created in STACKn via the Python API: ```stackn.create_object('fedn-mnist', release_type="minor")```
 
-6. The model was created as a Tensorflow model, so it can now be deployed using the Tensorflow serving app. 
-- Go to STACKn, select Serve in the left menu.
-- Click 'Create' under 'Tensorflow Serving'
-- Name: can be anything
-- Select your model.
-- Leave all other settings as their defaults
-- Click 'Create'
+4. Save the model as a Tensorflow model. 
+    
+    4.1 Copy the notebook `deploy-fedn-mnist.ipynb` from the [Studio tutorial folder](https://github.com/scaleoutsystems/examples/tree/main/tutorials/studio/quickstart) to the [mnist-keras folder](https://github.com/scaleoutsystems/examples/tree/main/mnist-keras).
+    ```bash
+    cp tutorials/studio/quickstart/deploy_fedn_mnist.ipynb ./mnist-keras/
+    cd ./mnist-keras/
+    ```
+    4.2 Open it and replace the model name with the most recent model name from 'minio-vol/fedn-models'
 
-7. Wait for the container to deploy. You can check the log (via the folder icon) for 'Entering the event loop'.
+**Note:** You can find the most recent model name in a couple different ways:
+- In the Minio UI, under the _fedn-models_ bucket
+- In the FEDn Reducer UI, under the _Models_ tab
+- In Jupyter Lab, since we are attaching the exact same Persisten Volume. Models name and details will be available under the `minio-vol/fed-models` path
+    
+    4.3 Run all cells to save the model.
+    
+    4.4 A new object is created in STACKn via the Python API: ```stackn.create_object('fedn-mnist', release_type="minor")```
 
-8. When deployed, copy the link to the endpoint by right-clicking 'Open' and copy link address. 
+    4.5 You should find the new created model object in the Studio UI under the Objects, by the name `fedn-mnist`
 
-9. Test the serving by uploading __mnist-predict.ipynb__ to the 'project-volume' (in Jupyter) and pasting the endpoint link in the request.post call.
+5. The model was created as a Tensorflow model, so it can now be deployed using the Tensorflow serving app.
 
-10. Run all cells to make a public (over the internet call) to the model and get a prediction from your federated model back!
+    5.1 Go to Studio UI and create a TensorFlow Serving app, under the "_Serve_" tab
+
+    5.2 _Name_ can be anything, most important is to select the newly created model (i.e. `fedn-mnist`) you have just created via the Jupyter notebook in the previous steps
+
+    5.3 Leave all other settings as their defaults and click "_Create_"
+
+6. Wait for the containerized app to be deployed. You can check the log (via the folder icon) for 'Entering the event loop'.
+
+7. When installed, copy the link to the endpoint by right-clicking the "_Open_" link. 
+
+8. Test the serving within your Jupyter Lab instance. Open the terminal and:
+
+    8.1 Copy the notebook `mnist-predict.ipynb` from the [Studio tutorial folder](https://github.com/scaleoutsystems/examples/tree/main/tutorials/studio/quickstart) to the [mnist-keras folder](https://github.com/scaleoutsystems/examples/tree/main/mnist-keras).
+    ```bash
+    cp tutorials/studio/quickstart/mnist-predict.ipynb ./mnist-keras/
+    cd ./mnist-keras/
+    ```
+    8.2 Paste the endpoint URL of the newly created TensorFlow serving instance inside the `mnist-predict.ipynb` notebook. That is, replace the URL within the `requests.post` method
+
+    8.3 Run all cells to make a public (over the internet call) to the model and get a prediction from your federated model
+
+This complete the creation and serving of a TensorFlow model from a federated learning training scenario with Studio and FEDn. Well done!
