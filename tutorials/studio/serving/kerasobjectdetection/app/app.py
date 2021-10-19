@@ -8,6 +8,7 @@ from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_table
 from requests.api import request
 
 import tensorflow as tf
@@ -56,7 +57,7 @@ app.layout = html.Div([
         [
             html.H1('Keras Object Detection',
                     className='text-center'),
-            html.P('Demo of served Keras object detection applications',
+            html.P('Keras object detection applications (ImageNet weights)',
                    className='text-center'),
             html.Hr(),
             html.Div(
@@ -87,7 +88,7 @@ app.layout = html.Div([
         ]),
     dbc.Row([
         dbc.Col([
-            html.Div(id='output-image-upload',
+            html.Div(id='aggregated-prediction-result',
                      className="container text-center")
         ]),
         dbc.Col([
@@ -99,8 +100,8 @@ app.layout = html.Div([
 ], className="container")
 
 
-@app.callback(Output('output-image-upload', 'children'),
-              Output('output-image-result', 'children'),
+@app.callback(Output('output-image-result', 'children'),
+              Output('aggregated-prediction-result','children'),
               Output('loading-output', 'children'),
               Input('upload-image', 'contents'),
               State('upload-image', 'filename'),
@@ -124,8 +125,10 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
         aggregated_prediction = collections.Counter()
         num_predictions = 0
         all_predictions = {}
+        timings = {}
         for model, url in endpoints.items():
-            prediction = predict(model,url)
+            t, prediction = predict(model,url)
+            timings[model] = t
 
             for pred in prediction:
                 key = pred[1]
@@ -134,28 +137,48 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
                     aggregated_prediction[key] += prob
                 except:
                     aggregated_prediction[key] = prob
-                num_predictions += 1
+            num_predictions += 1
  
-            pred_res.append(html.Div(
-                [
-                    #html.B(key, style={'font-weight': 'bold'}),
-                    html.Span(["{}: {}".format(model, prediction)])
-                ], style={'font-size': '20px'}))
+            #pred_res.append(html.Div(
+            #    [
+            #        #html.B(key, style={'font-weight': 'bold'}),
+            #        html.Span(["{}: {}".format(model, prediction)])
+            #    ], style={'font-size': '20px'}))
 
         for key, value in aggregated_prediction.items():
             aggregated_prediction[key] = value/float(num_predictions)
 
+        
+
+        #table = dash_table.DataTable(
+        #        id='table',
+        #        columns=[
+        #            {"name": "Model", "id": "model"},
+        #            {"name": "1", "id": "1"},
+        #            {"name": "2", "id": "2"},
+        #            {"name": "3", "id": "3"},
+        #        ],
+        #        #data=df.to_dict('records'),
+        #    )
+
+
         ensemble_pred.append(html.Div(
             [
-                #html.B(key, style={'font-weight': 'bold'}),
-                html.Span(["Aggregated prediction: {}".format(aggregated_prediction)])
+                html.B("Aggregated prediction:", style={'font-weight': 'bold'}),
+                html.Span(["{}".format(aggregated_prediction)])
+            ], style={'font-size': '20px'}))
+
+        ensemble_pred.append(html.Div(
+            [
+                html.B("Timings:", style={'font-weight': 'bold'}),
+                html.Span(["{}".format(timings)])
             ], style={'font-size': '20px'}))
 
     except Exception as err:
         print("No image.")
         print(err)
 
-    return image_html,pred_res, []
+    return [], ensemble_pred, []
 
 def predict_request(url,inp):
 
@@ -207,7 +230,7 @@ def predict(model, url):
     else: 
         prediction = None
 
-    return prediction
+    return res['time'], prediction
 
 
 
