@@ -75,15 +75,16 @@ app.layout = html.Div([
                         # Allow multiple files to be uploaded
                         multiple=False
                     ),
-                    dcc.Loading(
-                        id="loading-1",
-                        type="default",
-                        children=html.Div(id="loading-output")
-                    ),
                     html.Hr(),
                 ], className='container')
         ], className='jumbotron'),
-    html.H2('Prediction', className='text-center'),
+    dbc.Row([
+         dcc.Loading(
+                        id="loading-1",
+                        type="default",
+                        children=html.Div(id="loading-output")
+                    )
+        ]),
     dbc.Row([
         dbc.Col([
             html.Div(id='output-image-upload',
@@ -98,9 +99,9 @@ app.layout = html.Div([
 ], className="container")
 
 
-@app.callback(Output("loading-output", "children"),
-              Output('output-image-upload', 'children'),
+@app.callback(Output('output-image-upload', 'children'),
               Output('output-image-result', 'children'),
+              Output('loading-output', 'children'),
               Input('upload-image', 'contents'),
               State('upload-image', 'filename'),
               State('upload-image', 'last_modified'))
@@ -108,7 +109,6 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
     print("In: update output", flush=True)
 
     image_html = []
-
     pred_res = []
     ensemble_pred = []
     try:
@@ -151,13 +151,11 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
                 html.Span(["Aggregated prediction: {}".format(aggregated_prediction)])
             ], style={'font-size': '20px'}))
 
-
-
     except Exception as err:
         print("No image.")
         print(err)
 
-    return image_html, pred_res
+    return image_html,pred_res, []
 
 def predict_request(url,inp):
 

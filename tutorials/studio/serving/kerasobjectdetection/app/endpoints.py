@@ -1,9 +1,9 @@
 
 # Configure serving endpoints
 endpoints = {
-    'inceptionv3': 'https://rd5f2b2b7.studio.scaleoutsystems.com/v1/models/models:predict',
-    'resnet50': 'https://r20a0fadd.studio.scaleoutsystems.com/v1/models/models:predict',
-    'xception': 'https://r439872c6.studio.scaleoutsystems.com/v1/models/models:predict'
+    'inceptionv3': 'https://r41f7d1ac.studio.scaleoutsystems.com/v1/models/models:predict',
+    'resnet50': 'https://rba99be30.studio.scaleoutsystems.com/v1/models/models:predict',
+    'xception': 'https://rdbc9d018.studio.scaleoutsystems.com/v1/models/models:predict'
 }
 
 
