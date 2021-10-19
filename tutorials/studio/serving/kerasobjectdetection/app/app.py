@@ -14,6 +14,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 
 import numpy 
+import collections 
+
 
 from endpoints import endpoints
 
@@ -62,7 +64,7 @@ app.layout = html.Div([
                     dcc.Upload(id='upload-image', children=html.Div(['Drag and Drop or ', html.A('Select File')]),
                                style={
                         'width': '98%',
-                        'height': '150px',
+                        'height': '100x',
                         'lineHeight': '60px',
                         'borderWidth': '2px',
                         'borderStyle': 'solid',
@@ -72,6 +74,11 @@ app.layout = html.Div([
                     },
                         # Allow multiple files to be uploaded
                         multiple=False
+                    ),
+                    dcc.Loading(
+                        id="loading-1",
+                        type="default",
+                        children=html.Div(id="loading-output")
                     ),
                     html.Hr(),
                 ], className='container')
@@ -87,11 +94,12 @@ app.layout = html.Div([
             html.Div(id='output-image-result',
                      className="container text-center bg-info")
         ])
-    ])
+    ]),
 ], className="container")
 
 
-@app.callback(Output('output-image-upload', 'children'),
+@app.callback(Output("loading-output", "children"),
+              Output('output-image-upload', 'children'),
               Output('output-image-result', 'children'),
               Input('upload-image', 'contents'),
               State('upload-image', 'filename'),
@@ -102,6 +110,7 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
     image_html = []
 
     pred_res = []
+    ensemble_pred = []
     try:
         content_type, content_string = list_of_contents.split(',')
 
@@ -112,14 +121,37 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
             fh.write(file_obj.getbuffer())
             fh.flush()
 
+        aggregated_prediction = collections.Counter()
+        num_predictions = 0
+        all_predictions = {}
         for model, url in endpoints.items():
             prediction = predict(model,url)
 
+            for pred in prediction:
+                key = pred[1]
+                prob = pred[2]
+                try: 
+                    aggregated_prediction[key] += prob
+                except:
+                    aggregated_prediction[key] = prob
+                num_predictions += 1
+ 
             pred_res.append(html.Div(
                 [
                     #html.B(key, style={'font-weight': 'bold'}),
                     html.Span(["{}: {}".format(model, prediction)])
                 ], style={'font-size': '20px'}))
+
+        for key, value in aggregated_prediction.items():
+            aggregated_prediction[key] = value/float(num_predictions)
+
+        ensemble_pred.append(html.Div(
+            [
+                #html.B(key, style={'font-weight': 'bold'}),
+                html.Span(["Aggregated prediction: {}".format(aggregated_prediction)])
+            ], style={'font-size': '20px'}))
+
+
 
     except Exception as err:
         print("No image.")
