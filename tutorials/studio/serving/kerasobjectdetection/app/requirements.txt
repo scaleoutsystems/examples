@@ -1,3 +1,4 @@
 dash-bootstrap-components
 numpy
 tensorflow
+pillow
