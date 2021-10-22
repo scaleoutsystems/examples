@@ -110,7 +110,7 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
         res_dict = eval(res.text)
 
         image_html = html.Img(
-            src='data:image/png;base64,{}'.format(content_string), width="50%")
+            src='data:image/png;base64,{}'.format(content_string), width="35%")
 
         for key, value in res_dict.items():
             html.Span(key, style={'font-weight': 'bold'})
