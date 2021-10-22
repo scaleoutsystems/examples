@@ -24,7 +24,7 @@ From the UI, under the _Serve_ tab, use the 'Dash App' to deploy an application 
 
 - **_Permissions_** : `Public`
 - **_Persistent volume_**: `project-vol` 
-- **_Deployment - Path to folder_**: `examples/tutorials/studio/serving/kerasobjectdetection/app`
+- **_Deployment - Path to folder_**: `examples/tutorials/studio/serving/keras-object-detection/app`
 
 ## 5. Test the application 
 Open the app by clicking on the open link and test the application, e.g. using the 'cat.jpg' image in this repostitory.
