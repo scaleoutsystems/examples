@@ -7,24 +7,27 @@ in a bagging ensamble. This illustrates how to work with model and app serving i
 ## 1. Create STACKn  model objects 
 
 The first step is to create STACKn model objects for each of the Keras models. 
-In STACKn, create a new Project, then start a Jupyter Lab session mounting the project_volume. Start
-a terminal, then clone this repository onto '/work/project_volume'. Then open the notebook 'Deploy.ipynb'
+In STACKn, create a new STACKn Project, then start a Jupyter Lab session mounting the `project-vol` as persistent volume. Once in Jupyter, start
+a terminal and clone this repository into the `/work/project-vol` folder. Finally, open the notebook `Deploy.ipynb`
 and follow the instructions to create model objects. 
 
 ## 2. Serve the models using the Tensorflow Serving application 
 
-From the UI in the menu "serve", use the Tensorflow serving application to serve each model. Set 'Permissions' to 'public'. 
+From the UI in the menu "serve", use the Tensorflow serving application to serve each model. This means that you should create three separete serving apps. Make sure to set _Permissions_ to `public`.
 
 ## 3. Configure the Dash application
 For each served model, copy the endpoint url (by opening the application and copying the url). 
-From the Jupyter Lab session, open and edit 'app/endpoints.py', replacing the urls with your served enpoints. 
+From the Jupyter Lab session, open and edit `app/endpoints.py` by replacing the urls with your served enpoints. 
 
 ## 4. Deploy the Dash application
-From the UI, Serving menu, use the 'Dash App' application to deply the application. Use the settings: 
+From the UI, under the _Serve_ tab, use the 'Dash App' to deploy an application which uses the keras object detection models you have created. make sure to use the following settings: 
 
-Permissions : Public
-Persistent volume: project-vol 
-deployment: examples/tutorials/studio/serving/kerasobjectdetection/app
+- **_Permissions_** : `Public`
+- **_Persistent volume_**: `project-vol` 
+- **_Deployment - Path to folder_**: `examples/tutorials/studio/serving/kerasobjectdetection/app`
 
-## Test the application 
-From the main 'Apps' menu, you can access and test the application, e.g. using the 'cat.jpg' image in this repostitory.  
+## 5. Test the application 
+Open the app by clicking on the open link and test the application, e.g. using the 'cat.jpg' image in this repostitory.
+
+## 6. Publish the dash app
+Under the serve tab, in the entry for your created dash-app, by clicking on the `publish` link you will make available your app to others collaborators who has access to the same Studio platform, from outside the context of your project/experiment. Once an app is published, it will then be avaible under the tab "Apps", in the "Catalogs" section in the top left corner of the Studio UI.
