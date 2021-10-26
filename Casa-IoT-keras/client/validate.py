@@ -4,7 +4,6 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 import tensorflow.keras as keras
 import tensorflow.keras.models as krm
 from read_data import read_data
-import pickle
 import json
 from sklearn import metrics
 import numpy

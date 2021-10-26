@@ -1,12 +1,8 @@
-import keras
-from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Dense, Dropout, Flatten
-from keras.models import Sequential
-from keras.layers import LSTM
-import os
-
-
-import tempfile
+import tensorflow
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.layers import Dense, Dropout, Flatten
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM
 
 # Create an initial LSTM Model
 def create_seed_model():

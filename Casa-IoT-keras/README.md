@@ -1,31 +1,32 @@
 # CASA example - Keras version
-This classsic example of Human Daily Activity Recognition (HDAR) is well suited both as a lightweight test when learning FEDn and developing on FEDn in psedo-distributed mode. A normal high-end laptop or a workstation should be able to sustain at least 15 clients. The example is also useful for general scalability tests in fully distributed mode. 
+This classsic example of Human Daily Activity Recognition (HDAR) is well suited both as a lightweight test when learning FEDn and developing on FEDn in psedo-distributed mode. A normal high-end laptop or a workstation should be able to sustain at least 15 clients. The example is also useful for general scalability tests in fully distributed mode, for more details about the dataset please check to the following link.
 
-[comment]: <> (### Provide local training and test data)
+https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+from+Continuous+Ambient+Sensor+Data
 
-[comment]: <> (To download and prepare the partitioned dataset &#40;creates 10 partitions&#41; in ./data/casa{index}/c{index} etc:)
 
-[comment]: <> (https://archive.org/download/all_20210914/all.csv)
-
-[comment]: <> (, each apartment data are distributed over 11 clients)
-
-[comment]: <> (```)
-
-[comment]: <> (python create_data_partitions.py)
-
-[comment]: <> (```)
 ## Provide local training and test data
 For large data transfer reason we uploaded a data folder in this use case to archive.org. To test this use case, you need to download prepared data that composed 27 apartments (casa's). In this use-case, two different ways have been provided to generate the dataset partitions (training, and testing set), that gives the user more flexibility, these ways are listed below.
 
-1. Based on your needs (number of clients you want, the training dataset size, and testing dataset size), by downloading and preparing the dataset partitions (creates 10 partitions) in ./data/casa{index}/c{index}, using the following command.
+1. Based on your needs (number of clients you want, the training dataset size, and testing dataset size), due to the large size of the dataset we provide a lightweight sample (http://archive.org/download/train_20211025/train.csv') of the dataset to prepare your partitions by downloading and preparing the dataset partitions (creates 10 partitions) in ./data/casa{index}/c{index}, using the following command.
+```
+python create_data_partitions.py
+```
+For the full dataset partitioning you need to download the dataset manually using the following command:
+```
+wget http://archive.org/download/all_20210914/all.csv
+```
+After having the full dataset locally, you have to replace the dataset path in ``` create_data_partitions.py ``` line 10 with the local dataset path, then execute the following command.
 ```
 python create_data_partitions.py
 ```
 
-2. Partitions already generated for each apartment the dataset is distributed over 11 clients (training and testing sets),  you can download it using this link:
-https://archive.org/download/data_20210225/data.zip, then follow the next instructions
-    - Unzip the file
-    - Copy the content of the unzipped Archive to the data folder under casa directory
+2. Partitions already generated for each apartment the dataset is distributed over 11 clients (training and testing sets),  you can download it using the following command:
+```
+wget https://archive.org/download/data_20210225/data.zip
+```
+After that, please follow the next instructions.
+   - Unzip the file
+   - Copy the content of the unzipped Archive to the data folder under casa directory
 
 ## Configuring the Reducer
 Navigate to 'https://localhost:8090' (or the url of your Reducer) and follow instructions to upload the compute package in 'package/package.tar.gz' and the initial model in 'initial_model/initial_model.npz'.

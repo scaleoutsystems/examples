@@ -4,7 +4,7 @@ casa_numbers=27   # min =1, max =27
 client_numbers=10 #max= 10 , starts from 0
 reducer_host='reducer'
 combiner_name='combiner'
-combiner_ip='130.238.20.10'
+combiner_ip='Combiner-IP'
 
 clients_counter=1
  echo "Generate docker-compose.yaml file"
@@ -23,14 +23,6 @@ clients_counter=1
         printf '    image: "casa:latest"\n'; shift
         printf '    build:\n'; shift
         printf '      context: .\n'; shift
-#        printf '    deploy:\n'; shift
-#        printf '      resources:\n'; shift
-#        printf '        limits:\n'; shift
-#        printf "          cpus: '0.50'\n"; shift
-#        printf "          memory: '512M'\n"; shift
-#        printf '        reservations:\n'; shift
-#        printf "          cpus: '0.25'\n"; shift
-#        printf "          memory: '128M'\n"; shift
         printf '    working_dir: /app\n'; shift
         printf '    command: /bin/bash -c "fedn run client -in client.yaml"\n'; shift
         printf '    volumes:\n'; shift
@@ -42,10 +34,6 @@ clients_counter=1
 
     done
 
-#    printf "networks:\n"; shift
-#    printf "  default:\n"; shift
-#    printf "    external:\n"; shift
-#    printf "      name: fedn_default\n"; shift
 
 }  >docker-compose.yaml
 

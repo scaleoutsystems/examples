@@ -1,14 +1,6 @@
-import numpy
 import pandas as pd
-import pickle
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import normalize, StandardScaler, LabelEncoder
-import keras
-import sys
 import numpy as np
-import scipy
-import scipy.io
-from keras.utils import to_categorical
 import yaml
 
 

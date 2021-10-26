@@ -7,9 +7,9 @@ from pathlib import Path
 
 def import_data(test_ratio):
     """ Download data. """
-    data = pd.read_csv('https://archive.org/download/all_20210914/all.csv')
+    data = pd.read_csv('http://archive.org/download/train_20211025/train.csv')
     data = data.sample(frac=1).reset_index(drop=True)
-    data.to_csv("data.csv", index=False)
+    # data.to_csv("data.csv", index=False)
     num_test = int(test_ratio*data.shape[0])
     testset = data[:num_test]
     trainset = data[num_test:]
@@ -44,6 +44,6 @@ if __name__ == '__main__':
 
     for i in range(nr_of_datasets):
         if not os.path.exists('data/casa{}/c{}'.format(str(i),str(i))):
-            Path(('casa{}/c{}'.format(str(i),str(i)))).mkdir(parents=True, exist_ok=True)
+            Path(('data/casa{}/c{}'.format(str(i),str(i)))).mkdir(parents=True, exist_ok=True)
         trainsets[i].to_csv('data/casa{}/c{}'.format(str(i),str(i)) + '/train.csv', index=False)
         testsets[i].to_csv('data/casa{}/c{}'.format(str(i),str(i)) + '/test.csv', index=False)

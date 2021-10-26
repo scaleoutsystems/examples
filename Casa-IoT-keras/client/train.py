@@ -1,14 +1,10 @@
 from __future__ import print_function
 import sys
-import keras
-from keras.models import Sequential
+import tensorflow
 import tensorflow as tf
-import random
+
 import yaml
 from read_data import read_data
-import os
-import pickle
-
 from fedn.utils.kerashelper import KerasHelper
 from models.casa_model import create_seed_model
 

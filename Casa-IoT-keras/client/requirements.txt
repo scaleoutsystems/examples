@@ -1,6 +1,5 @@
 numpy
-keras
-tensorflow
+tensorflow<2.6.0
 sklearn
 pandas
 flask
