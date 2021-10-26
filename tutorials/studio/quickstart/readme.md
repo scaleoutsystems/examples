@@ -99,8 +99,8 @@ Steps:
     6.2 `stackn get objects`
 
 **Note:** add the flag `--insecure` in case you have deployed STACKn locally with a self-signed certificate
-    
-    (Check that the model is listed; you should be able to see the newly created model object in your Studio UI, under the "_Objects_" tab)
+
+(Check that the model is listed; you should be able to see the newly created model object in your Studio UI, under the "_Objects_" tab)
 
 7. Deploy the newly created model object with the "_Python Model Deployment_" component (under the "_Serve_" tab in Studio). _Name_ can be anything, _Model_ should match the name of the newly created model (e.g. "afbert:v0.1.0"); leave the rest as defaults.
 
