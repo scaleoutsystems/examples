@@ -20,6 +20,8 @@ Steps:
 
     5.2 `stackn get objects` (check that the model is listed)
 
+**Note**: add the flag `--insecure` in case you have deployed STACKn locally with a self-signed certificate
+
 6. Go back to the STACKn interface, go to Serve and deploy the model as a Tensorflow model:
     
     6.1 Click _Create_ in _Tensorflow Serving_
@@ -92,9 +94,11 @@ Steps:
 
 6. Once you have run all the cells in the above notebook, open up again the terminal and execute the following command within the repository directory:
     
-    6.1 `stackn create object afbert -r minor` (**Note:** add the flag `--insecure` in case you have deployed STACKn locally with a self-signed certificate)
+    6.1 `stackn create object afbert -r minor`
 
-    6.2 `stackn get objects` (**Note:** add the flag `--insecure` in case you have deployed STACKn locally with a self-signed certificate)
+    6.2 `stackn get objects`
+
+**Note:** add the flag `--insecure` in case you have deployed STACKn locally with a self-signed certificate
     
     (Check that the model is listed; you should be able to see the newly created model object in your Studio UI, under the "_Objects_" tab)
 
