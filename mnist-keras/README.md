@@ -89,6 +89,26 @@ python init_model.py
 docker-compose -f docker-compose.yaml -f private-network.yaml down
  ```
 
+## Troubleshooting
+
+### Tensorflow error when building docker image
+
+The error message
+ ```bash
+ ERROR: No matching distribution found for tensorflow>=2.3.2
+ ```
+could be caused by your device having a processor with arm architecture. 
+This will make Docker download images compiled for aarch64 platform (if another platform is not specified), 
+and unfortunately Tensorflow doesn't support the aarch64 platform. 
+So a solution is to simply specify another platform that works with Tensorflow. 
+This can be done by changing to e.g. python:3.8.9-bullseye in the Dockerfile, as below.
+  ```bash
+FROM python:3.8.9-bullseye
+COPY requirements.txt /app/
+WORKDIR /app
+RUN pip install -r requirements.txt
+RUN pip install -e git://github.com/scaleoutsystems/fedn.git@develop#egg=fedn\&subdirectory=fedn ```
+ ```
 
 ## License
 Apache-2.0 (see LICENSE file for full information).
