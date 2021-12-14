@@ -17,6 +17,7 @@ Below we maintain a list of public examples and projects by external users and p
 
 **Federated learning/FEDn**
 - [FedBird - Federated object detection for Baltic Seabirds](https://github.com/aidotse/fedbird) FEDn project by AI Sweden and Zenseact. 
+- [FEDn in AI Sweden EdgeLab](https://github.com/aidotse/EdgeLab/tree/main/tutorials/fedn) Instructions for running fully distributed FEDn in [EdgeLab](https://www.ai.se/en/data-factory/edge-lab).
 - [FedLM - Federatad Electra.](https://github.com/Kungbib/fedLM) FEDn NLP project by the Swedish Royal Library. 
 - [Human activity recognition with a Keras CNN based on the casa dataset (cross-device)](https://github.com/scaleoutsystems/FEDn-client-casa-keras)
 - [Fraud detection with a Keras auto-encoder (ANN encoder)](https://github.com/scaleoutsystems/FEDn-client-fraud_keras)  
