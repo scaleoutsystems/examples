@@ -6,7 +6,8 @@ The examples in this repository are all maintained by Scaleout and/or core devel
 
  - mnist-keras: Getting started with FEDn (MNIST, Keras version)
  - mnist-pytorch: Getting started with FEDn (MNIST, Pytorch version)
- - imdb-keras: FEDn sentiment analysis, IMDB dataset. 
+ - imdb-keras: FEDn sentiment analysis, IMDB dataset (cross-silo example in [this paper](https://arxiv.org/abs/2103.00148)). 
+ - Casa-IoT-keras: Human activity recognition, Casa dataset (cross-device case study in [this paper](https://arxiv.org/abs/2103.00148)).  
  - how-tos: Various tips-and tricks when using FEDn and STACKn. 
 
 Join our [Discord community](https://discord.gg/CCRgjpMsVA) to get help, provide feedback and share your own use-case ideas.  
@@ -19,7 +20,6 @@ Below we maintain a list of public examples and projects by external users and p
 - [FedBird - Federated object detection for Baltic Seabirds](https://github.com/aidotse/fedbird) FEDn project by AI Sweden and Zenseact. 
 - [FEDn in AI Sweden EdgeLab](https://github.com/aidotse/EdgeLab/tree/main/tutorials/fedn) Instructions for running fully distributed FEDn in [EdgeLab](https://www.ai.se/en/data-factory/edge-lab).
 - [FedLM - Federatad Electra.](https://github.com/Kungbib/fedLM) FEDn NLP project by the Swedish Royal Library. 
-- [Human activity recognition with a Keras CNN based on the casa dataset (cross-device)](https://github.com/scaleoutsystems/FEDn-client-casa-keras)
 - [Fraud detection with a Keras auto-encoder (ANN encoder)](https://github.com/scaleoutsystems/FEDn-client-fraud_keras)  
 - [VGG16 trained on cifar-10 with a PyTorch client (cross-silo)](https://github.com/scaleoutsystems/FEDn-client-cifar10-pytorch) 
 - [Sentiment analysis with a PyTorch CNN trained on the IMDB dataset (cross-silo)](https://github.com/scaleoutsystems/FEDn-client-imdb-pytorch.git) 
