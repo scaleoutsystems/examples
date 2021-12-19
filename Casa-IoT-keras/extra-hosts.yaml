@@ -1,0 +1,92 @@
+version: '3.3'
+services:
+   client1:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client2:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client3:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client4:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client5:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client6:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client7:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client8:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client9:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client10:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client11:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client12:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client13:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client14:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client15:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client16:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client17:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client18:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client19:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client20:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client21:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client22:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client23:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client24:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client25:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client26:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client27:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client28:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client29:
+    extra_hosts:
+      combiner: Combiner_IP 
+   client30:
+    extra_hosts:
+      combiner: Combiner_IP 
