@@ -1,0 +1,24 @@
+{
+  "name": "devcontainer",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "remoteUser": "default",
+  // "workspaceFolder": "/mnist-cpp",
+  // "workspaceMount": "source=/home/ubuntu/git/mdn-poc,target=/mdn-poc,type=bind,consistency=default", // AWS
+  // "workspaceMount": "source=/home/marco/git/mdn-poc,target=/mdn-poc,type=bind,consistency=default", // Epicenter
+  // "workspaceMount": "source=/home/azureuser/git/mdn-poc,target=/mdn-poc,type=bind,consistency=default", // Azure
+  "extensions": [
+    "ms-vscode.cpptools",
+    "ms-vscode.cpptools-extension-pack",
+    "ms-vscode.cpptools-themes",
+    "exiasr.hadolint",
+    // "zxh404.vscode-proto3",
+    "yzhang.markdown-all-in-one"
+  ],
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind,consistency=default",
+  ],
+  // "runArgs": [
+  //   "--privileged"
+  // ],
+}
