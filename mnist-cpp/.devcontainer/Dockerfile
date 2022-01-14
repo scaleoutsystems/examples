@@ -34,6 +34,7 @@ RUN apt-get update \
   vim \
   build-essential \
   unzip \
+  openssh-client \
   #
   # Hadolint
   && wget --progress=dot:giga -O /bin/hadolint \
