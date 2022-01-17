@@ -1,3 +1,4 @@
+#include "NumCpp.hpp"
 #include <torch/torch.h>
 
 // Define neural network
