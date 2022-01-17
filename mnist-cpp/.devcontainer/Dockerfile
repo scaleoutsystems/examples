@@ -5,6 +5,8 @@ FROM debian:bookworm
 ARG HADOLINT_VERSION=v2.8.0
 ARG CMAKE_VERSION=3.16.9
 ARG TORCH_VERSION=1.10.1
+ARG NUMCPP_VERSION=2.6.2
+ARG DOCKER_VERSION=19.03.9
 
 # Non-root user with sudo access
 ARG USERNAME=default
@@ -35,6 +37,7 @@ RUN apt-get update \
   build-essential \
   unzip \
   openssh-client \
+  libboost-all-dev \
   #
   # Hadolint
   && wget --progress=dot:giga -O /bin/hadolint \
@@ -42,7 +45,7 @@ RUN apt-get update \
   && chmod +x /bin/hadolint \
   #
   # Install docker binary
-  && curl -L https://download.docker.com/linux/static/stable/x86_64/docker-19.03.9.tgz | tar xvz docker/docker \
+  && curl -L https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz | tar xvz docker/docker \
   && cp docker/docker /usr/local/bin \
   && rm -R docker \
   #
@@ -57,6 +60,16 @@ RUN apt-get update \
   && wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}%2Bcpu.zip \
   && unzip libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
   && rm -r libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
+  && popd \
+  #
+  # Install NumCpp
+  && git clone -b Version_${NUMCPP_VERSION} https://github.com/dpilger26/NumCpp.git \
+  && pushd NumCpp \
+  && mkdir build \
+  && pushd build \
+  && cmake .. \
+  && cmake --build . --target install \
+  && popd \
   && popd \
   #
   # Create a non-root user to use if preferred
