@@ -37,7 +37,6 @@ RUN apt-get update \
   build-essential \
   unzip \
   openssh-client \
-  libboost-all-dev \
   #
   # Hadolint
   && wget --progress=dot:giga -O /bin/hadolint \
@@ -60,16 +59,6 @@ RUN apt-get update \
   && wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}%2Bcpu.zip \
   && unzip libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
   && rm -r libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
-  && popd \
-  #
-  # Install NumCpp
-  && git clone -b Version_${NUMCPP_VERSION} https://github.com/dpilger26/NumCpp.git \
-  && pushd NumCpp \
-  && mkdir build \
-  && pushd build \
-  && cmake .. \
-  && cmake --build . --target install \
-  && popd \
   && popd \
   #
   # Create a non-root user to use if preferred
