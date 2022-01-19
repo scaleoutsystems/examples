@@ -7,6 +7,7 @@ ARG CMAKE_VERSION=3.16.9
 ARG TORCH_VERSION=1.10.1
 ARG NUMCPP_VERSION=2.6.2
 ARG DOCKER_VERSION=19.03.9
+ARG CONDA_VERSION=4.9.2
 
 # Non-root user with sudo access
 ARG USERNAME=default
@@ -60,6 +61,13 @@ RUN apt-get update \
   && unzip libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
   && rm -r libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
   && popd \
+  # 
+  # Install conda
+  && wget https://repo.anaconda.com/miniconda/Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh \
+  && bash Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/conda \
+  && rm -f Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh \
+  && ln -s /opt/conda/bin/conda /bin/conda \
+  && ln -s /opt/conda/bin/conda-env /bin/conda-env \
   #
   # Create a non-root user to use if preferred
   && groupadd --gid $USER_GID $USERNAME \
@@ -71,6 +79,19 @@ RUN apt-get update \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
+
+# Setup default environment
+COPY environment.yaml /tmp/environment.yaml
+RUN conda env create -f /tmp/environment.yaml \
+  && rm /tmp/environment.yaml \
+  && conda run -n default python -m ipykernel install --name default \
+  && chown default /opt/conda/envs/default
+
+# Init conda for non-root user
+USER $USERNAME
+RUN conda init bash \
+  && conda config --set auto_activate_base false \
+  && echo "conda activate default" >> ~/.bashrc
 
 # Set working directory
 WORKDIR /home/$USERNAME
