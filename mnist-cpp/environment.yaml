@@ -9,3 +9,4 @@ dependencies:
   - ipykernel=6.7.0
   - pip:
     - numpy==1.22.1
+    - python-mnist==0.7
