@@ -25,10 +25,14 @@ struct Net : torch::nn::Module {
 
 int main(int argc, char** argv) {
   // Init model
+  std::string out_path;
   std::shared_ptr<Net> net = std::make_shared<Net>();
   if (argc == 3) {
     torch::load(net, argv[1]);
-  } else if (argc > 3 || argc < 2) {
+    out_path = argv[2];
+  } else if (argc == 2) {
+    out_path = argv[1];  
+  } else {
     std::cerr << "Wrong number of arguments" << std::endl;
   }
 
@@ -41,22 +45,27 @@ int main(int argc, char** argv) {
   // Init optimizer
   torch::optim::SGD optimizer(net->parameters(), /*lr=*/0.01);
 
+  size_t n_splits =  std::stoi(std::getenv("N_SPLITS"));
+  size_t split =  std::stoi(std::getenv("SPLIT"));
+
   // Train loop
   for (size_t epoch = 1; epoch <= N_EPOCHS; ++epoch) { // epoch loop
     size_t batch_index = 0;
     for (auto& batch : *data_loader) { // batch loop
-      optimizer.zero_grad(); // reset gradients
-      torch::Tensor prediction = net->forward(batch.data); // forward pass
-      torch::Tensor loss = torch::nll_loss(prediction, batch.target); // compute loss
-      loss.backward(); // backprop
-      optimizer.step(); // update params
-      if (++batch_index % 100 == 0) { // every 100 baches
+      if (batch_index % n_splits == split) {
+        optimizer.zero_grad(); // reset gradients
+        torch::Tensor prediction = net->forward(batch.data); // forward pass
+        torch::Tensor loss = torch::nll_loss(prediction, batch.target); // compute loss
+        loss.backward(); // backprop
+        optimizer.step(); // update params
         // Print logs
         std::cout << "Epoch: " << epoch << " | Batch: " << batch_index
                   << " | Loss: " << loss.item<float>() << std::endl;
-        // Checkpoint model
-        torch::save(net, argv[2]);
       }
+      batch_index++;
     }
   }
+
+  // Save
+  torch::save(net, out_path);
 }
