@@ -1,0 +1,10 @@
+name: default
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  - pip=21.3.1
+  - pip:
+    - numpy==1.22.1
