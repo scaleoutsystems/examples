@@ -6,6 +6,6 @@ channels:
 dependencies:
   - python=3.9
   - pip=21.3.1
-  - ipykernel
+  - ipykernel=6.7.0
   - pip:
     - numpy==1.22.1
