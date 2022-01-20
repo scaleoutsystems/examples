@@ -78,17 +78,25 @@ RUN apt-get update \
   && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
   && chmod 0440 /etc/sudoers.d/$USERNAME \
   #
+  # Configure FEDn directories
+  && mkdir -p /opt/FEDn/app/certs \
+  && mkdir -p /opt/FEDn/app/config \
+  && chown -R $USERNAME /opt/FEDn/app \
+  #
   # Cleanup
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
+
+# Copy FEDn config
+COPY config/settings-reducer.yaml /opt/FEDn/app/config
 
 # Setup default environment
 COPY environment.yaml /tmp/environment.yaml
 RUN conda env create -f /tmp/environment.yaml \
   && rm /tmp/environment.yaml \
   && conda run -n default python -m ipykernel install --name default \
-  && chown default /opt/conda/envs/default
+  && chown $USERNAME /opt/conda/envs/default
 
 # Init conda for non-root user
 USER $USERNAME
