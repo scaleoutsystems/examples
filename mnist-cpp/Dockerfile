@@ -89,7 +89,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Copy FEDn config
-COPY config/settings-reducer.yaml /opt/FEDn/app/config
+COPY config/*.yaml /opt/FEDn/app/config/
 
 # Setup default environment
 COPY environment.yaml /tmp/environment.yaml
