@@ -2,4 +2,4 @@ build
 .vscode
 data
 *.pt
-devcontainer.json
+.devcontainer
