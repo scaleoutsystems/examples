@@ -96,9 +96,6 @@ RUN conda init bash \
   && conda config --set auto_activate_base false \
   && echo "conda activate default" >> ~/.bashrc
 
-# Set working directory
-WORKDIR /home/$USERNAME
-
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
 
