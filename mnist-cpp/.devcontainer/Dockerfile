@@ -101,3 +101,6 @@ WORKDIR /home/$USERNAME
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
+
+# Add entrypoint to conda environment for commands
+ENTRYPOINT ["conda", "run", "-n", "default"]
