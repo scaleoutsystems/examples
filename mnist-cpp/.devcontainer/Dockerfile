@@ -8,6 +8,7 @@ ARG TORCH_VERSION=1.10.1
 ARG NUMCPP_VERSION=2.6.2
 ARG DOCKER_VERSION=19.03.9
 ARG CONDA_VERSION=4.9.2
+ARG COMPOSE_VERSION=1.29.2
 
 # Non-root user with sudo access
 ARG USERNAME=default
@@ -44,10 +45,12 @@ RUN apt-get update \
   https://github.com/hadolint/hadolint/releases/download/${HADOLINT_VERSION}/hadolint-Linux-x86_64 \
   && chmod +x /bin/hadolint \
   #
-  # Install docker binary
+  # Install docker binaries
   && curl -L https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz | tar xvz docker/docker \
   && cp docker/docker /usr/local/bin \
   && rm -R docker \
+  && curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose \
+  && chmod +x /usr/local/bin/docker-compose \
   #
   # Install cmake
   && wget -q -O cmake-linux.sh https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-Linux-x86_64.sh \
