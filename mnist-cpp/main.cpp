@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
         loss.backward(); // backprop
         optimizer.step(); // update params
         // Print logs
-        std::cout << "Epoch: " << epoch << " | Batch: " << batch_index
+        std::cerr << "Epoch: " << epoch << " | Batch: " << batch_index
                   << " | Loss: " << loss.item<float>() << std::endl;
       }
       batch_index++;
