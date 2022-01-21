@@ -79,9 +79,10 @@ RUN apt-get update \
   && chmod 0440 /etc/sudoers.d/$USERNAME \
   #
   # Configure FEDn directories
-  && mkdir -p /opt/FEDn/app/certs \
-  && mkdir -p /opt/FEDn/app/config \
-  && chown -R $USERNAME /opt/FEDn/app \
+  && mkdir -p /app/certs \
+  && mkdir -p /app/client/package \
+  && mkdir -p /app/config \
+  && chown -R $USERNAME /app \
   #
   # Cleanup
   && apt-get autoremove -y \
@@ -89,7 +90,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Copy FEDn config
-COPY config/*.yaml /opt/FEDn/app/config/
+COPY config/*.yaml /app/config/
 
 # Setup default environment
 COPY environment.yaml /tmp/environment.yaml
@@ -108,4 +109,4 @@ RUN conda init bash \
 ENV DEBIAN_FRONTEND=dialog
 
 # Add entrypoint to conda environment for commands
-ENTRYPOINT ["conda", "run", "-n", "default"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "default"]

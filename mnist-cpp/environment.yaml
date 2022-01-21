@@ -8,4 +8,4 @@ dependencies:
   - pip=21.3.1
   - ipykernel=6.7.0
   - pip:
-    - "-e git://github.com/scaleoutsystems/fedn.git@master#egg=fedn&subdirectory=fedn"
+    - "-e git://github.com/scaleoutsystems/fedn.git@v0.3.1#egg=fedn&subdirectory=fedn"

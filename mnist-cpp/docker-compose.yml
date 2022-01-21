@@ -60,7 +60,7 @@ services:
       - USER=test
       - PROJECT=project
     build: .
-    working_dir: /opt/FEDn/app
+    working_dir: /app
     command: fedn run reducer -n reducer --init=config/settings-reducer.yaml
     ports:
       - 8090:8090
@@ -71,7 +71,7 @@ services:
       - PYTHONUNBUFFERED=0
       - GET_HOSTS_FROM=dns
     build: .
-    working_dir: /opt/FEDn/app
+    working_dir: /app
     command: fedn run combiner -in config/settings-combiner.yaml
     ports:
       - 12080:12080
@@ -81,7 +81,7 @@ services:
     environment:
       - GET_HOSTS_FROM=dns
     build: .
-    working_dir: /opt/FEDn/app
+    working_dir: /app
     command: fedn run client -in config/settings-client.yaml
 
 volumes: # add config here to persist data across run
