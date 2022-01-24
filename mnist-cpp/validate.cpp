@@ -15,9 +15,9 @@ int main(int argc, char** argv) {
     }
 
     // Load data
-    auto images = torch::data::datasets::MNIST("./data").map(
+    auto images = torch::data::datasets::MNIST("./data", torch::data::datasets::MNIST::Mode::kTest).map(
         torch::data::transforms::Stack<>()).dataset().images();
-    auto targets = torch::data::datasets::MNIST("./data").map(
+    auto targets = torch::data::datasets::MNIST("./data", torch::data::datasets::MNIST::Mode::kTest).map(
         torch::data::transforms::Stack<>()).dataset().targets();
 
     // Compute metrics
