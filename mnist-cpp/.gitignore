@@ -4,3 +4,6 @@ data
 *.pt
 .devcontainer
 /*.json
+train
+validate
+package

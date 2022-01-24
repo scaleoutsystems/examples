@@ -1,0 +1,5 @@
+entry_points:
+  train:
+    command: N_SPLITS=1 SPLIT=0 train
+  validate:
+    command: validate
