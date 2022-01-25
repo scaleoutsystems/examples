@@ -3,7 +3,9 @@ build
 data
 *.pt
 .devcontainer
-/*.json
+/**/*.json
 train
 validate
 package
+*.npz
+src/fedn

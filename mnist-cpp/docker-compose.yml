@@ -25,8 +25,6 @@ services:
     ports:
       - 9000:9000
       - 9001:9001
-    volumes:
-      - minio-data:/data
 
   mongo:
     image: mongo:latest
@@ -83,6 +81,5 @@ services:
     build: .
     working_dir: /app
     command: fedn run client -in config/settings-client.yaml
-
-volumes: # add config here to persist data across run
-  minio-data:
+    volumes:
+      - ./data:/app/data

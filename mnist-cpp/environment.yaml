@@ -9,3 +9,5 @@ dependencies:
   - ipykernel=6.7.0
   - pip:
     - "-e git://github.com/scaleoutsystems/fedn.git@v0.3.1#egg=fedn&subdirectory=fedn"
+    - torch==1.10.1
+    - fire==0.3.1
