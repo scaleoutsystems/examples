@@ -20,12 +20,13 @@ int main(int argc, char** argv) {
   }
 
   // Get other params from environment vars
-  size_t n_splits =  std::stoi(std::getenv("N_SPLITS"));
-  size_t split =  std::stoi(std::getenv("SPLIT"));
+  size_t n_splits = std::stoi(std::getenv("N_SPLITS"));
+  size_t split = std::stoi(std::getenv("SPLIT"));
+  std::string data_dir = std::getenv("DATA_DIR");
 
   // Multi-threaded data loader for the MNIST dataset.
   auto data_loader = torch::data::make_data_loader(
-      torch::data::datasets::MNIST("./data").map(
+      torch::data::datasets::MNIST(data_dir).map(
         torch::data::transforms::Stack<>()),
         BATCH_SIZE);
 

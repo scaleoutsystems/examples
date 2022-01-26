@@ -1,5 +1,5 @@
 entry_points:
   train:
-    command: N_SPLITS=1 SPLIT=0 ./train.sh
+    command: ./train.sh
   validate:
     command: ./validate.sh

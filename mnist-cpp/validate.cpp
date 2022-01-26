@@ -13,11 +13,14 @@ int main(int argc, char** argv) {
         std::cerr << "Wrong number of arguments" << std::endl;
         exit(1);
     }
+    
+    // Parse env
+    std::string data_dir = std::getenv("DATA_DIR");
 
     // Load data
-    auto images = torch::data::datasets::MNIST("./data", torch::data::datasets::MNIST::Mode::kTest).map(
+    auto images = torch::data::datasets::MNIST(data_dir, torch::data::datasets::MNIST::Mode::kTest).map(
         torch::data::transforms::Stack<>()).dataset().images();
-    auto targets = torch::data::datasets::MNIST("./data", torch::data::datasets::MNIST::Mode::kTest).map(
+    auto targets = torch::data::datasets::MNIST(data_dir, torch::data::datasets::MNIST::Mode::kTest).map(
         torch::data::transforms::Stack<>()).dataset().targets();
 
     // Compute metrics

@@ -27,7 +27,7 @@ services:
       - 9001:9001
 
   mongo:
-    image: mongo:latest
+    image: mongo:5.0.2
     restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=fedn_admin
@@ -78,8 +78,12 @@ services:
   client:
     environment:
       - GET_HOSTS_FROM=dns
+      - N_SPLITS=1
+      - SPLIT=0 
     build: .
     working_dir: /app
     command: fedn run client -in config/settings-client.yaml
     volumes:
-      - ./data:/app/data
+      - ${DATA_DIR}:/app/data
+    deploy:
+      replicas: 0

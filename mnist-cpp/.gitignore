@@ -1,6 +1,5 @@
 build
 .vscode
-data
 *.pt
 .devcontainer
 /**/*.json
@@ -9,3 +8,4 @@ validate
 package
 *.npz
 src/fedn
+.env
