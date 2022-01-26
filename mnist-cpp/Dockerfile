@@ -20,6 +20,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Other env
 ENV TORCH_DIR=/opt/torch
+ENV DATA_DIR=/app/data
 
 # Install apt deps
 SHELL ["/bin/bash", "-c"]
@@ -83,6 +84,10 @@ RUN apt-get update \
   && mkdir -p /app/client/package \
   && mkdir -p /app/config \
   && chown -R $USERNAME /app \
+  #
+  # Configure data dir
+  && mkdir -p $DATA_DIR \
+  && chown $USERNAME $DATA_DIR \
   #
   # Cleanup
   && apt-get autoremove -y \
