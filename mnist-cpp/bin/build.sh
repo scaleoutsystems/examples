@@ -12,9 +12,13 @@ cmake --no-warn-unused-cli \
 # Build
 cmake --build $PWD/build --config Debug --target all -j $(nproc) --
 
-# Copy binaries to right folder
+# Copy binaries to the right folder
 cp build/train build/validate client
 
 # Make package
 mkdir -p package
 tar -czvf package/package.tar.gz client
+
+# Make seed
+SPLIT=0 N_SPLITS=1 build/train seed.pt
+python client/helper.py pt2np seed.pt seed
