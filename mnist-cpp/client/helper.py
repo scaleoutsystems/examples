@@ -1,9 +1,8 @@
-import fire
 import collections
 
-from fedn.utils.pytorchhelper import PytorchHelper
-
+import fire
 import torch
+from fedn.utils.pytorchhelper import PytorchHelper
 from torch import nn
 from torch.nn import functional as F
 
@@ -17,10 +16,11 @@ class Net(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.fc1(x.reshape(x.size(0), 784)))
-        x = F.dropout(x,p=0.5, training=self.training)
+        x = F.dropout(x, p=0.5, training=self.training)
         x = F.relu(self.fc2(x))
         x = F.log_softmax(self.fc3(x), dim=1)
         return x
+
 
 def np2pt(np_path, pt_path):
     # Load weights
@@ -36,6 +36,7 @@ def np2pt(np_path, pt_path):
     model.eval()
     torch.jit.script(model).save(pt_path)
 
+
 def pt2np(pt_path, np_path):
     # Load weights
     weights = torch.jit.load(pt_path).state_dict()
@@ -47,5 +48,6 @@ def pt2np(pt_path, np_path):
     helper = PytorchHelper()
     helper.save_model(weights_np, np_path)
 
+
 if __name__ == '__main__':
-  fire.Fire()
+    fire.Fire()

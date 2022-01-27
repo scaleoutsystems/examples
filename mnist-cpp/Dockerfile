@@ -61,13 +61,13 @@ RUN apt-get update \
   # Install libtorch
   && mkdir $TORCH_DIR \
   && pushd $TORCH_DIR \
-  && wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}%2Bcpu.zip \
+  && wget --progress=dot:giga https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}%2Bcpu.zip \
   && unzip libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
   && rm -r libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
   && popd \
   # 
   # Install conda
-  && wget https://repo.anaconda.com/miniconda/Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh \
+  && wget --progress=dot:giga https://repo.anaconda.com/miniconda/Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh \
   && bash Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/conda \
   && rm -f Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh \
   && ln -s /opt/conda/bin/conda /bin/conda \
