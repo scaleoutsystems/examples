@@ -10,6 +10,9 @@ model_out="$2"
 python helper.py np2pt "$model_in" "$model_in_name".pt
 
 # Train
+export N_SPLITS=$(sudo docker ps --format "{{ .Names }}" | grep client | wc -l)
+SPLIT=$(sudo docker ps | grep $(hostname) | awk '{print substr($NF, length($NF), length($NF))}')
+export SPLIT=$(($SPLIT - 1))
 ./train "$model_in_name".pt "$model_in_name".retrain.pt
 
 # Convert pt to npz
