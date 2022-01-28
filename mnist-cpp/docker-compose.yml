@@ -88,7 +88,7 @@ services:
     working_dir: /app
     command: fedn run client -in config/settings-client.yaml
     volumes:
-      - ${DATA_DIR}/:/app/data
+      - ${HOST_DATA_DIR}/:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       replicas: 0

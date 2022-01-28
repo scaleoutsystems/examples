@@ -6,5 +6,6 @@ validate
 package
 *.npz
 src/fedn
-!.env
 !.vscode/settings.json
+data
+.env
