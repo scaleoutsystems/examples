@@ -1,6 +1,5 @@
 build
 *.pt
-.devcontainer
 /**/*.json
 train
 validate
