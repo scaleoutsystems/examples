@@ -45,4 +45,4 @@ sudo docker-compose up -d --scale client=2
 Finally, you can navigate again to https://localhost:8090 and start the experiment from the "control" tab.
 
 ## Clean up
-To clean up you can run: `docker-compose down`. To exit the Docker environment simply run `exit`.
+To clean up you can run: `sudo docker-compose down`. To exit the Docker environment simply run `exit`.
