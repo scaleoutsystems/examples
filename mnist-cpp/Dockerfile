@@ -9,6 +9,8 @@ ARG NUMCPP_VERSION=2.6.2
 ARG DOCKER_VERSION=19.03.9
 ARG CONDA_VERSION=4.9.2
 ARG COMPOSE_VERSION=1.29.2
+ARG SGX_SDK_VERSION=2.15.101.1
+ARG SGX_PSW_VERSION=2.15.1
 
 # Non-root user with sudo access
 ARG USERNAME=default
@@ -37,9 +39,28 @@ RUN apt-get update \
   curl \
   git \
   vim \
-  build-essential \
-  unzip \
   openssh-client \
+  build-essential \
+  autoconf \
+  libtool \
+  pkg-config \
+  clang-format \
+  googletest \
+  libgtest-dev \
+  autoconf \
+  bison \
+  gawk \
+  ninja-build \
+  python3 \
+  python3-pip \
+  python3-click \
+  python3-jinja2 \
+  libcurl4-openssl-dev \
+  libprotobuf-c-dev \
+  protobuf-c-compiler \
+  python3-protobuf \
+  linux-headers-amd64 \
+  unzip \
   #
   # Hadolint
   && wget --progress=dot:giga -O /bin/hadolint \
@@ -64,6 +85,39 @@ RUN apt-get update \
   && wget --progress=dot:giga https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}%2Bcpu.zip \
   && unzip libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
   && rm -r libtorch-cxx11-abi-shared-with-deps-${TORCH_VERSION}+cpu.zip \
+  && popd \
+  #
+  # SGX SDK
+  && wget --progress=dot:giga https://download.01.org/intel-sgx/latest/linux-latest/distro/ubuntu20.04-server/sgx_linux_x64_sdk_${SGX_SDK_VERSION}.bin \
+  && chmod +x sgx_linux_x64_sdk_${SGX_SDK_VERSION}.bin \
+  && ./sgx_linux_x64_sdk_${SGX_SDK_VERSION}.bin --prefix /opt/sgx-sdk \
+  && rm sgx_linux_x64_sdk_${SGX_SDK_VERSION}.bin \
+  #
+  # SGX PSW
+  && wget --progress=dot:giga https://download.01.org/intel-sgx/sgx-linux/${SGX_PSW_VERSION}/distro/ubuntu20.04-server/sgx_debian_local_repo.tgz \
+  && tar xzvf sgx_debian_local_repo.tgz \
+  && mv sgx_debian_local_repo /opt \
+  && echo 'deb [trusted=yes] file:///opt/sgx_debian_local_repo focal main' >> /etc/apt/sources.list \
+  && echo 'deb [trusted=yes] http://archive.ubuntu.com/ubuntu focal main' >> /etc/apt/sources.list \
+  && apt-get update \
+  && sudo apt-get install -y --no-install-recommends \
+  ubuntu-keyring \
+  libsgx-urts \
+  libsgx-launch \
+  libsgx-epid \
+  libsgx-quote-ex \
+  libsgx-dcap-ql \
+  #
+  # Gramine
+  && python3 -m pip install --no-cache-dir 'meson>=0.55' 'toml>=0.10' \
+  && git clone https://github.com/gramineproject/gramine.git /opt/gramine \
+  && pushd /opt/gramine \
+  && git checkout $GRAMINE_HEAD \
+  && mkdir -p /usr/include/asm \
+  && ln -s /usr/src/linux-headers-*/arch/x86/include/uapi/asm/sgx.h /usr/include/asm/sgx.h \
+  && meson setup build/ --buildtype=release -Ddirect=enabled -Dsgx=enabled \
+  && ninja -C build/ \
+  && ninja -C build/ install \
   && popd \
   # 
   # Install conda
