@@ -14,7 +14,6 @@ The only prerequisite to run this example is [Docker](https://www.docker.com).
 ## Running the example
 
 Start by downloading the data:
-
 ```
 bin/download_data.sh
 ```
