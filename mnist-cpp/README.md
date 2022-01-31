@@ -30,7 +30,7 @@ bin/build.sh
 ```
 > This may take a few minutes. After completion `package/package.tgz` and `seed.npz` should be built in your current working directory.
 
-Start reduce and combiner network:
+Start reducer and combiner network:
 ```
 sudo docker-compose up -d
 ```
