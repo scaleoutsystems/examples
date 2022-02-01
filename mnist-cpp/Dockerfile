@@ -107,18 +107,6 @@ RUN apt-get update \
   libsgx-epid \
   libsgx-quote-ex \
   libsgx-dcap-ql \
-  #
-  # Gramine
-  && python3 -m pip install --no-cache-dir 'meson>=0.55' 'toml>=0.10' \
-  && git clone https://github.com/gramineproject/gramine.git /opt/gramine \
-  && pushd /opt/gramine \
-  && git checkout $GRAMINE_HEAD \
-  && mkdir -p /usr/include/asm \
-  && ln -s /usr/src/linux-headers-*/arch/x86/include/uapi/asm/sgx.h /usr/include/asm/sgx.h \
-  && meson setup build/ --buildtype=release -Ddirect=enabled -Dsgx=enabled \
-  && ninja -C build/ \
-  && ninja -C build/ install \
-  && popd \
   # 
   # Install conda
   && wget --progress=dot:giga https://repo.anaconda.com/miniconda/Miniconda3-py39_${CONDA_VERSION}-Linux-x86_64.sh \
@@ -143,6 +131,12 @@ RUN apt-get update \
   && mkdir -p $DATA_DIR \
   && chown $USERNAME $DATA_DIR \
   #
+  # Configure for gramine
+  && mkdir -p /usr/include/asm \
+  && ln -s /usr/src/linux-headers-*/arch/x86/include/uapi/asm/sgx.h /usr/include/asm/sgx.h \
+  && mkdir -p /opt/gramine \
+  && chown -R $USERNAME /opt/gramine \
+  #
   # Cleanup
   && apt-get autoremove -y \
   && apt-get clean -y \
@@ -156,7 +150,25 @@ COPY environment.yaml /tmp/environment.yaml
 RUN conda env create -f /tmp/environment.yaml \
   && rm /tmp/environment.yaml \
   && conda run -n default python -m ipykernel install --name default \
-  && chown $USERNAME /opt/conda/envs/default
+  && chown $USERNAME /opt/conda/envs/default \
+  #
+  # Gramine
+  && git clone https://github.com/gramineproject/gramine.git /opt/gramine \
+  && pushd /opt/gramine \
+  && git checkout $GRAMINE_HEAD \
+  && conda run --no-capture-output -n default \
+  meson setup build/ --buildtype=release -Ddirect=enabled -Dsgx=enabled \
+  && conda run --no-capture-output -n default \
+  ninja -C build/ \
+  && conda run --no-capture-output -n default \
+  ninja -C build/ install \
+  && popd
+
+# Setup fedn environment
+COPY fedn.yaml /tmp/fedn.yaml
+RUN conda env create -f /tmp/fedn.yaml \
+  && rm /tmp/fedn.yaml \
+  && chown $USERNAME /opt/conda/envs/fedn
 
 # Init conda for non-root user
 USER $USERNAME
@@ -168,4 +180,4 @@ RUN conda init bash \
 ENV DEBIAN_FRONTEND=dialog
 
 # Add entrypoint to conda environment for commands
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "default"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fedn"]
