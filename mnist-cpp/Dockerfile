@@ -156,7 +156,8 @@ RUN conda init bash \
 RUN git clone https://github.com/gramineproject/gramine.git /opt/gramine \
   && pushd /opt/gramine \
   && git checkout $GRAMINE_HEAD \
-  && conda run -n default meson setup build/ --buildtype=release -Ddirect=enabled -Dsgx=enabled \
+  && conda run -n default meson setup build/ \
+  --buildtype=release -Ddirect=enabled -Dsgx=enabled --prefix=/opt/conda/envs/default \
   && conda run -n default ninja -C build/ \
   && sudo /opt/conda/envs/default/bin/ninja -C build/ install \
   && popd
