@@ -11,6 +11,7 @@ ARG CONDA_VERSION=4.9.2
 ARG COMPOSE_VERSION=1.29.2
 ARG SGX_SDK_VERSION=2.15.101.1
 ARG SGX_PSW_VERSION=2.15.1
+ARG GRAMINE_HEAD=e7429e13bb3e914c5f582ead4ca2e3f81d145a8f
 
 # Non-root user with sudo access
 ARG USERNAME=default
@@ -44,23 +45,16 @@ RUN apt-get update \
   autoconf \
   libtool \
   pkg-config \
-  clang-format \
   googletest \
   libgtest-dev \
   autoconf \
-  bison \
   gawk \
-  ninja-build \
-  python3 \
-  python3-pip \
-  python3-click \
-  python3-jinja2 \
   libcurl4-openssl-dev \
   libprotobuf-c-dev \
   protobuf-c-compiler \
-  python3-protobuf \
   linux-headers-amd64 \
   unzip \
+  bison \
   #
   # Hadolint
   && wget --progress=dot:giga -O /bin/hadolint \
@@ -150,25 +144,7 @@ COPY environment.yaml /tmp/environment.yaml
 RUN conda env create -f /tmp/environment.yaml \
   && rm /tmp/environment.yaml \
   && conda run -n default python -m ipykernel install --name default \
-  && chown $USERNAME /opt/conda/envs/default \
-  #
-  # Gramine
-  && git clone https://github.com/gramineproject/gramine.git /opt/gramine \
-  && pushd /opt/gramine \
-  && git checkout $GRAMINE_HEAD \
-  && conda run --no-capture-output -n default \
-  meson setup build/ --buildtype=release -Ddirect=enabled -Dsgx=enabled \
-  && conda run --no-capture-output -n default \
-  ninja -C build/ \
-  && conda run --no-capture-output -n default \
-  ninja -C build/ install \
-  && popd
-
-# Setup fedn environment
-COPY fedn.yaml /tmp/fedn.yaml
-RUN conda env create -f /tmp/fedn.yaml \
-  && rm /tmp/fedn.yaml \
-  && chown $USERNAME /opt/conda/envs/fedn
+  && chown $USERNAME /opt/conda/envs/default
 
 # Init conda for non-root user
 USER $USERNAME
@@ -176,8 +152,17 @@ RUN conda init bash \
   && conda config --set auto_activate_base false \
   && echo "conda activate default" >> ~/.bashrc
 
+# Gramine
+RUN git clone https://github.com/gramineproject/gramine.git /opt/gramine \
+  && pushd /opt/gramine \
+  && git checkout $GRAMINE_HEAD \
+  && conda run -n default meson setup build/ --buildtype=release -Ddirect=enabled -Dsgx=enabled \
+  && conda run -n default ninja -C build/ \
+  && sudo /opt/conda/envs/default/bin/ninja -C build/ install \
+  && popd
+
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
 
 # Add entrypoint to conda environment for commands
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fedn"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "default"]

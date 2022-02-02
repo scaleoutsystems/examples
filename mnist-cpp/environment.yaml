@@ -4,15 +4,16 @@ channels:
   - conda-forge
 
 dependencies:
-  - python=3.6
+  - python=3.9
   - pip=21.3.1
   - ipykernel=6.7.0
   - pip:
+    - "-e git://github.com/scaleoutsystems/fedn.git@v0.3.1#egg=fedn&subdirectory=fedn"
     - torch==1.10.1
     - fire==0.3.1
     - autopep8==1.6.0
-    - click==8.0.3
     - meson>=0.55
     - toml>=0.10
-    - jinja2==3.0.3
-    - numpy==1.13.1
+    - protobuf==3.19.4
+    - ninja==1.10.0
+    - clang-format==13.0.0
