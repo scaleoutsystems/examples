@@ -9,3 +9,7 @@ src/fedn
 !.vscode/settings.json
 data
 .env
+*.sgx
+*.manifest
+*.sig
+*.token

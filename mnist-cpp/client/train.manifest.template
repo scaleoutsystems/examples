@@ -1,0 +1,30 @@
+loader.entrypoint = "file:{{ gramine.libos }}"
+libos.entrypoint = "train"
+loader.log_level = "{{ log_level }}"
+loader.argv0_override = "train"
+loader.insecure__use_cmdline_argv = true
+loader.env.LD_LIBRARY_PATH = "/lib:/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu"
+
+fs.mount.lib.type = "chroot"
+fs.mount.lib.path = "/lib"
+fs.mount.lib.uri = "file:{{ gramine.runtimedir() }}"
+
+fs.mount.usr_lib64.type = "chroot"
+fs.mount.usr_lib64.path = "/usr/lib/x86_64-linux-gnu"
+fs.mount.usr_lib64.uri = "file:/usr/lib/x86_64-linux-gnu"
+
+fs.mount.lib64.type = "chroot"
+fs.mount.lib64.path = "/lib/x86_64-linux-gnu"
+fs.mount.lib64.uri = "file:/lib/x86_64-linux-gnu"
+
+sgx.thread_num = 8
+sgx.debug = true
+sgx.nonpie_binary = true
+
+sgx.trusted_files = [
+    "file:train",
+    "file:/usr/lib/x86_64-linux-gnu/",
+    "file:/lib/x86_64-linux-gnu/",
+    "file:{{ gramine.libos }}",
+    "file:{{ gramine.runtimedir() }}/",
+]
