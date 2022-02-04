@@ -10,4 +10,4 @@ json_out="$2"
 python helper.py np2pt "$model_in" "$model_in_name".pt
 
 # Train
-./validate "$model_in_name".pt "$json_out"
+$LOADER ./validate "$model_in_name".pt "$json_out"
