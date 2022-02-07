@@ -10,5 +10,5 @@ json_out="$2"
 python helper.py np2pt "$model_in" "$model_in_name".pt
 
 # Validate
-export OMP_NUM_THREADS=4
+export OMP_NUM_THREADS=2
 $LOADER ./validate "$model_in_name".pt "$json_out"
