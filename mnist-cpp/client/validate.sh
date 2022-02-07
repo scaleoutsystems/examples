@@ -9,5 +9,6 @@ json_out="$2"
 # Convert npz to pt
 python helper.py np2pt "$model_in" "$model_in_name".pt
 
-# Train
+# Validate
+export OMP_NUM_THREADS=4
 $LOADER ./validate "$model_in_name".pt "$json_out"
