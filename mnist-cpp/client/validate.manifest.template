@@ -27,8 +27,8 @@ fs.mount.app.path = "/app"
 fs.mount.app.uri = "file:/app"
 
 fs.mount.tmp.type = "chroot"
-fs.mount.tmp.path = "/tmp"
-fs.mount.tmp.uri = "file:/tmp"
+fs.mount.tmp.path = "/var/tmp"
+fs.mount.tmp.uri = "file:/var/tmp"
 
 sgx.thread_num = 8
 sgx.debug = true
@@ -37,7 +37,7 @@ sgx.nonpie_binary = true
 sgx.trusted_files = [
     "file:validate",
     "file:/app/",
-    "file:/tmp/",
+    "file:/var/tmp/",
     "file:/opt/torch/libtorch/lib/",
     "file:/usr/lib/x86_64-linux-gnu/",
     "file:/lib/x86_64-linux-gnu/",

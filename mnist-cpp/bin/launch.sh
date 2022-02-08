@@ -2,10 +2,11 @@
 set -e
 
 # Build container
+if [ -z "$USERNAME" ]; then USERNAME="$(whoami)"; fi
 docker build \
 	-f Dockerfile \
 	-t local/mnist-cpp \
-	--build-arg DOCKER_USER=$(whoami) \
+	--build-arg USERNAME=$USERNAME \
 	--build-arg USER_UID=$UID \
 	.
 
@@ -17,6 +18,6 @@ docker run --rm -it \
 	-v /var/run/docker.sock:/var/run/docker.sock \
 	-v "$HOST_DATA_DIR:/app/data" \
 	--net=host \
-	-u default \
+	-u $USERNAME \
 	local/mnist-cpp \
-	/bin/bash -c "set -C; echo HOST_DATA_DIR=$HOST_DATA_DIR > .env; /bin/bash"
+	/bin/bash -c "echo HOST_DATA_DIR=$HOST_DATA_DIR > .env; /bin/bash"
