@@ -23,8 +23,8 @@ fs.mount.libtorch.path = "/opt/torch/libtorch/lib"
 fs.mount.libtorch.uri = "file:/opt/torch/libtorch/lib"
 
 fs.mount.app.type = "chroot"
-fs.mount.app.path = "/app"
-fs.mount.app.uri = "file:/app"
+fs.mount.app.path = "/app/data"
+fs.mount.app.uri = "file:/app/data"
 
 fs.mount.tmp.type = "chroot"
 fs.mount.tmp.path = "/var/tmp"
@@ -36,7 +36,7 @@ sgx.nonpie_binary = true
 
 sgx.trusted_files = [
     "file:train",
-    "file:/app/",
+    "file:/app/data/",
     "file:/var/tmp/",
     "file:/opt/torch/libtorch/lib/",
     "file:/usr/lib/x86_64-linux-gnu/",
