@@ -17,14 +17,6 @@ cmake --build $PWD/build --config Debug --target all -j $(nproc) --
 # Copy binaries to the right folder
 cp build/train build/validate client
 
-# Make package
-mkdir -p package
-tar -czvf package/package.tar.gz client
-
-# Make seed
-SPLIT=0 N_SPLITS=1 build/train seed.pt
-python client/helper.py pt2np seed.pt seed
-
 # Generate sig key if necessary
 if [ ! -e "$HOME/.gramine/enclave-key.pem" ]; then
     mkdir -p $HOME/.gramine
@@ -39,3 +31,11 @@ for src in train validate; do
     gramine-sgx-get-token --output $src.token --sig $src.sig
 done
 popd
+
+# Make package
+mkdir -p package
+tar -czvf package/package.tar.gz client
+
+# Make seed
+SPLIT=0 N_SPLITS=1 build/train seed.pt
+python client/helper.py pt2np seed.pt seed
