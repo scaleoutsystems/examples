@@ -6,6 +6,7 @@ This is an example of the classic MNIST hand-written text recognition task using
   - [Table of Contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
   - [Running the example](#running-the-example)
+  - [Running in Truested Execution Environment (TEE)](#running-in-truested-execution-environment-tee)
   - [Clean up](#clean-up)
 
 ## Prerequisites
@@ -13,16 +14,16 @@ The only prerequisite to run this example is [Docker](https://www.docker.com).
 
 ## Running the example
 
-Start by downloading the data:
-```
-bin/download_data.sh
-```
-
 Start the Docker environment:
 ```
 bin/launch.sh
 ```
 > This may take a few minutes.
+
+Download the data:
+```
+bin/download_data.sh
+```
 
 Build the compute package and train the seed model:
 ```
@@ -42,6 +43,12 @@ sudo docker-compose up -d --scale client=2
 ```
 
 Finally, you can navigate again to https://localhost:8090 and start the experiment from the "control" tab.
+
+## Running in Truested Execution Environment (TEE)
+The compute package in this example supports running training and validation in [Intel SGX TEE](https://www.intel.com/content/www/us/en/developer/tools/software-guard-extensions/overview.html) via [Gramine](https://grapheneproject.io). The code was tested using [Azure Confidential Computing](https://azure.microsoft.com/en-us/solutions/confidential-compute). To enable this running mode, after starting the development container with `bin/launch.sh` you can run:
+```
+echo "LOADER=gramine-sgx" >> .env
+```
 
 ## Clean up
 To clean up you can run: `sudo docker-compose down`. To exit the Docker environment simply run `exit`.
