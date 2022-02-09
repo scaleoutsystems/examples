@@ -17,21 +17,6 @@ cmake --build $PWD/build --config Debug --target all -j $(nproc) --
 # Copy binaries to the right folder
 cp build/train build/validate client
 
-# Generate sig key if necessary
-if [ ! -e "$HOME/.gramine/enclave-key.pem" ]; then
-    mkdir -p $HOME/.gramine
-    openssl genrsa -3 -out $HOME/.gramine/enclave-key.pem 3072
-fi
-
-# Generate SGX-related files
-pushd client
-for src in train validate; do
-    gramine-manifest -Dlog_level=debug $src.manifest.template $src.manifest
-    gramine-sgx-sign --key $HOME/.gramine/enclave-key.pem --manifest $src.manifest --output $src.manifest.sgx
-    gramine-sgx-get-token --output $src.token --sig $src.sig
-done
-popd
-
 # Make package
 mkdir -p package
 tar -czvf package/package.tar.gz client
