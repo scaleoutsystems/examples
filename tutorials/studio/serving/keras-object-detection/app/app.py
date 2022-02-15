@@ -31,17 +31,18 @@ external_stylesheets = [
 ]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.title = "Scaleout - Image Classifier"
+app.title = "Scaleout - Image Classifier Keras Demo"
 server = app.server
 
 app.layout = html.Div([
+
     dbc.Nav(
         [
             html.Div(
                 [
                     html.Div(
                         [
-                            html.A('Keras Object Detection',
+                            html.A('Keras Object Detection Demo',
                                    href='/', className='navbar-brand')
                         ], className='navbar-header'), html.Div(
                         [
@@ -53,11 +54,12 @@ app.layout = html.Div([
                         ], className='collapse navbar-collapse')
                 ], className='container')
         ], className='navbar navbar-inverse navbar-fixed-top'),
+
     html.Div(
         [
-            html.H1('Keras Object Detection',
+            html.H1('Keras Object Detection Demo',
                     className='text-center'),
-            html.P('Keras object detection applications (ImageNet weights)',
+            html.P('Upload images to classify with ResNet50, Xception and inceptionv3.',
                    className='text-center'),
             html.Hr(),
             html.Div(
@@ -77,8 +79,13 @@ app.layout = html.Div([
                         multiple=False
                     ),
                     html.Hr(),
-                ], className='container')
+                ], className='container'),
+            html.H3('About this application', className='text-center'),
+            html.P(['This demo application if part of a tutorial showing how served REST endpoints can be used in a Dash application.',
+                    ' The models come from Keras and are pre-trained on ImageNet'],
+                   className='text-center'),
         ], className='jumbotron'),
+
     dbc.Row([
          dcc.Loading(
                         id="loading-1",
@@ -86,6 +93,7 @@ app.layout = html.Div([
                         children=html.Div(id="loading-output")
                     )
         ]),
+
     dbc.Row([
         dbc.Col([
             html.Div(id='aggregated-prediction-result',
@@ -97,6 +105,7 @@ app.layout = html.Div([
                      className="container text-center bg-info")
         ])
     ]),
+
 ], className="container")
 
 
