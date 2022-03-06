@@ -1,0 +1,5 @@
+entry_points:
+  train:
+    command: ./train.sh
+  validate:
+    command: ./validate.sh

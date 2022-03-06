@@ -1,0 +1,50 @@
+loader.entrypoint = "file:{{ gramine.libos }}"
+libos.entrypoint = "train"
+loader.log_level = "{{ log_level }}"
+loader.argv0_override = "train"
+loader.insecure__use_cmdline_argv = true
+loader.insecure__use_host_env = true
+loader.env.LD_LIBRARY_PATH = "/lib:/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/opt/torch/libtorch/lib"
+
+fs.mount.lib.type = "chroot"
+fs.mount.lib.path = "/lib"
+fs.mount.lib.uri = "file:{{ gramine.runtimedir() }}"
+
+fs.mount.usr_lib64.type = "chroot"
+fs.mount.usr_lib64.path = "/usr/lib/x86_64-linux-gnu"
+fs.mount.usr_lib64.uri = "file:/usr/lib/x86_64-linux-gnu"
+
+fs.mount.lib64.type = "chroot"
+fs.mount.lib64.path = "/lib/x86_64-linux-gnu"
+fs.mount.lib64.uri = "file:/lib/x86_64-linux-gnu"
+
+fs.mount.libtorch.type = "chroot"
+fs.mount.libtorch.path = "/opt/torch/libtorch/lib"
+fs.mount.libtorch.uri = "file:/opt/torch/libtorch/lib"
+
+fs.mount.app.type = "chroot"
+fs.mount.app.path = "/app/data"
+fs.mount.app.uri = "file:/app/data"
+
+fs.mount.tmp.type = "chroot"
+fs.mount.tmp.path = "/var/tmp"
+fs.mount.tmp.uri = "file:/var/tmp"
+
+sgx.thread_num = 8
+sgx.debug = true
+sgx.nonpie_binary = true
+sgx.enclave_size = "1G"
+
+sgx.allowed_files = [
+    "file:/var/tmp/",
+]
+
+sgx.trusted_files = [
+    "file:train",
+    "file:/app/data/",
+    "file:/opt/torch/libtorch/lib/",
+    "file:/usr/lib/x86_64-linux-gnu/",
+    "file:/lib/x86_64-linux-gnu/",
+    "file:{{ gramine.libos }}",
+    "file:{{ gramine.runtimedir() }}/",
+]

@@ -1,0 +1,15 @@
+build
+*.pt
+/**/*.json
+train
+validate
+package
+*.npz
+src/fedn
+!.vscode/settings.json
+data
+.env
+*.sgx
+*.manifest
+*.sig
+*.token
