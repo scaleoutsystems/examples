@@ -1,4 +1,10 @@
 version: '3.3'
+
+# Setup network to match the fedn quickstart
+networks:
+  default:
+    name: fedn_default
+
 services:
   client0:
     environment:
