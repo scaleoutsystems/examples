@@ -1,6 +1,6 @@
-numpy
-keras
+numpy~=1.19.5
 tensorflow<2.6.0
+keras
 sklearn
 flask
 minio
